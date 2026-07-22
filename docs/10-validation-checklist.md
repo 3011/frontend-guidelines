@@ -1,67 +1,108 @@
-# 前端完成检查
+# Frontend Completion Checklist
 
-以下清单按任务范围执行。标记“不适用”时应能说明原因。
+Apply this checklist according to task scope. A “not applicable” item requires a reason; it cannot hide an unavailable test.
 
-## 布局
+## User task and scope
 
-- [ ] 同组元素与独立区块具有不同间距层级；
-- [ ] 分隔线、边框没有贴住内容；
-- [ ] 标题、状态和主要操作对齐稳定；
-- [ ] 长中文、长标识和大数字不会破坏布局；
-- [ ] 加载切换到真实内容时没有明显跳动。
+- [ ] The primary user task remains clear.
+- [ ] The change fixes the root cause at the correct layer.
+- [ ] Unrelated layout, wording, and behavior were not changed without scope.
+- [ ] Relevant sibling surfaces were inspected.
 
-## 表单与输入
+## Layout and hierarchy
 
-- [ ] 每个字段有明确标签和错误归属；
-- [ ] 输入一个字符后焦点和光标保持稳定；
-- [ ] 中文输入法组合输入正常；
-- [ ] 即时搜索不会打断输入；
-- [ ] 未保存内容不会静默丢失；
-- [ ] 首个错误可被定位和修复。
+- [ ] Related elements and independent sections use distinguishable spacing.
+- [ ] Dividers and borders do not touch adjacent content.
+- [ ] Headings, status, identifiers, and primary actions remain aligned.
+- [ ] Long text, identifiers, numbers, translation expansion, and zoom do not break the layout.
+- [ ] Loading and refresh do not introduce unnecessary layout shifts.
+- [ ] Essential actions remain reachable on narrow screens.
 
-## 弹层
+## Forms and input
 
-- [ ] Dialog、侧边面板的选择符合任务性质；
-- [ ] Select/Dropdown 不与触发器错误重叠或露边；
-- [ ] 弹层不超出视口，长内容可滚动；
-- [ ] Tooltip 不会因挂载、动画或布局变化意外出现；
-- [ ] 打开和关闭后的焦点位置合理；
-- [ ] Escape、外部点击和关闭按钮行为一致。
+- [ ] Every field has an identifiable label and correct help/error association.
+- [ ] Typing does not lose focus, caret position, or entered text.
+- [ ] IME composition completes before destructive search or validation updates.
+- [ ] Older requests cannot overwrite newer search results.
+- [ ] Read-only values do not look editable.
+- [ ] Unsaved work is preserved, saved, or explicitly discarded.
+- [ ] The first actionable error can be found and corrected.
 
-## 导航
+## Overlays and floating UI
 
-- [ ] 当前页面和当前导航项可识别；
-- [ ] 折叠/展开动画中无批量 Tooltip、闪烁和错位；
-- [ ] 导航标签简短且术语一致；
-- [ ] 移动端导航可完整打开、选择和关闭。
+- [ ] The modal or side-panel choice matches the task.
+- [ ] Anchored popups align predictably without partial overlap or exposed trigger edges.
+- [ ] Floating content remains inside the usable viewport and handles long content.
+- [ ] Tooltips do not appear from mount, restoration, scrolling, or layout transition.
+- [ ] Opening and closing place focus logically.
+- [ ] Escape, outside interaction, close controls, and browser navigation behave consistently.
+- [ ] Nested overlays do not create hidden or unreachable layers.
 
-## 状态与反馈
+## Navigation and route state
 
-- [ ] 加载、空、错误和成功状态有明确反馈；
-- [ ] 筛选无结果与没有数据能够区分；
-- [ ] 失败说明恢复方法，重试行为安全；
-- [ ] 禁用的关键操作有原因；
-- [ ] 破坏性操作在执行前说明范围和结果。
+- [ ] The current location and active item are identifiable without color alone.
+- [ ] Collapse and expansion have no bulk tooltips, flashing labels, or moving targets.
+- [ ] Back, forward, refresh, and direct links preserve expected context.
+- [ ] Search, filters, page, and view state are restored or intentionally reset.
+- [ ] Mobile navigation opens, operates, and closes completely.
 
-## 响应式与可访问性
+## Data and feedback
 
-- [ ] 典型桌面宽度验证通过；
-- [ ] 典型手机宽度验证通过；
-- [ ] 核心流程可由键盘完成；
-- [ ] 焦点始终可见且顺序合理；
-- [ ] 状态不只通过颜色表达；
-- [ ] 减少动效偏好下功能完整。
+- [ ] Initial loading, background refresh, stale, empty, partial, error, and success states are handled where relevant.
+- [ ] No-data and filtered-no-results states are distinct.
+- [ ] Counts distinguish displayed, loaded, selected, total, and estimated values.
+- [ ] Bulk selection scope is explicit.
+- [ ] Progress does not claim false precision.
+- [ ] Failures explain recovery and whether retry is safe.
+- [ ] Optimistic changes reconcile or roll back on rejection.
 
-## 文案
+## Actions, permissions, and lifecycle
 
-- [ ] 页面没有开发者说明和实现细节；
-- [ ] 操作名称明确表达动作与对象；
-- [ ] 同一概念使用一致术语；
-- [ ] 错误文案面向用户且可恢复。
+- [ ] Each clear scope has an understandable primary action.
+- [ ] Action placement and hit areas remain stable.
+- [ ] Icon-only actions have an accessible name and clear meaning.
+- [ ] Duplicate submission is prevented safely.
+- [ ] Destructive actions state object, scope, effect, and recovery.
+- [ ] Capability-dependent actions match the current role without claiming to enforce authorization.
+- [ ] Locked, archived, completed, or read-only states use presentation rather than editable controls.
 
-## 质量
+## Responsive behavior and accessibility
 
-- [ ] 检查了同类页面和共享使用位置；
-- [ ] 自动测试验证用户可观察结果；
-- [ ] 动画中间状态经过检查；
-- [ ] 已验证与未验证内容在交付报告中明确列出。
+- [ ] A representative desktop viewport was exercised.
+- [ ] A representative phone viewport was exercised.
+- [ ] Browser zoom or enlarged text was considered.
+- [ ] Core flows are keyboard-completable.
+- [ ] Focus remains visible and ordered logically.
+- [ ] Status is not communicated only by color.
+- [ ] Touch and hover interactions have appropriate alternatives.
+- [ ] Reduced-motion behavior remains functional.
+
+## Performance and resilience
+
+- [ ] Typing and common controls remain responsive under expected data size.
+- [ ] Large collections use a bounded rendering strategy.
+- [ ] Slow requests, timeouts, retries, and offline transitions do not lose input or duplicate actions.
+- [ ] Background refresh preserves usable content where appropriate.
+
+## Security, privacy, and localization
+
+- [ ] No secret or sensitive value is exposed through UI, URL, logs, analytics, clipboard, or errors without explicit need.
+- [ ] Untrusted content is not interpreted as executable markup.
+- [ ] Locale-aware number, date, unit, plural, sort, and timezone behavior is correct where relevant.
+- [ ] Longer translated text does not hide essential content or actions.
+
+## Content
+
+- [ ] The page contains no developer notes or implementation details for ordinary users.
+- [ ] Actions use explicit verbs and objects.
+- [ ] The same concept uses consistent terminology.
+- [ ] Error copy is user-facing and recoverable.
+- [ ] Risk and scope are explained before impactful actions.
+
+## Evidence and delivery
+
+- [ ] Static checks and existing automated tests passed.
+- [ ] Browser validation covers the original failure and applicable state matrix.
+- [ ] A regression test targets the root cause where practical.
+- [ ] Verified and unverified behavior is clearly separated in the delivery report.
+- [ ] Remaining risk and rollback are documented.

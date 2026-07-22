@@ -1,94 +1,109 @@
 # Frontend Agent Instructions
 
-本仓库定义 3011 项目通用的前端工程规范。它描述用户体验与工程验收，不提供 UI 库代码。
+This repository defines a shared frontend engineering contract for any project that adopts it. It specifies user outcomes and validation expectations; it does not provide UI library code.
 
-## 1. 必读顺序
+## 1. Required reading order
 
-开始任何前端任务前：
+Before any frontend task:
 
-1. 阅读项目自己的 `AGENTS.md`、README 和前端目录约定；
-2. 阅读本文件；
-3. 阅读 [`FRONTEND_SPEC.md`](FRONTEND_SPEC.md)；
-4. 根据任务读取相关 `docs/` 章节；
-5. 修改完成前执行 [`docs/10-validation-checklist.md`](docs/10-validation-checklist.md)。
+1. read the target project's `AGENTS.md`, README, and frontend conventions;
+2. read this file;
+3. read [`FRONTEND_SPEC.md`](FRONTEND_SPEC.md);
+4. read the topic chapters relevant to the task;
+5. complete [`docs/10-validation-checklist.md`](docs/10-validation-checklist.md) before delivery.
 
-## 2. 规则优先级
+For non-trivial work, fill in [`templates/FRONTEND_TASK_PLAN.md`](templates/FRONTEND_TASK_PLAN.md) or provide equivalent information in the task plan.
 
-出现冲突时，按以下顺序处理：
+## 2. Rule precedence
 
-1. 法律、安全、隐私和不可绕过的可访问性要求；
-2. 用户在当前任务中的明确要求；
-3. 项目自己的 `AGENTS.md` 与 `PROJECT_FRONTEND_PROFILE.md`；
-4. 项目已经形成的一致且合理的交互约定；
-5. 本仓库规范；
-6. 框架或 UI 库的默认行为。
+Resolve conflicts in this order:
 
-不得以“组件库默认如此”为理由保留明显的视觉或交互缺陷。
+1. law, security, privacy, and non-waivable accessibility requirements;
+2. explicit requirements in the current user request;
+3. the target project's `AGENTS.md` and `PROJECT_FRONTEND_PROFILE.md`;
+4. established project behavior that is both consistent and reasonable;
+5. this repository;
+6. framework, browser, or UI library defaults.
 
-## 3. 修改前必须完成
+A library default is never sufficient justification for retaining an observable usability defect.
 
-AI MUST：
+## 3. Required pre-change analysis
 
-- 识别当前框架、组件体系、路由、状态管理与测试方式；
-- 查找项目中是否已有相同或相近模式；
-- 判断问题属于页面局部、共享组件、全局样式还是状态模型；
-- 检查同类页面是否存在相同问题；
-- 明确桌面端、窄屏、键盘、焦点、输入法和深色模式影响；
-- 区分根因与截图中表现出来的症状。
+The agent MUST:
 
-AI MUST NOT：
+- identify the framework, UI system, routing, state ownership, data flow, and test strategy;
+- locate existing implementations of the same or a similar pattern;
+- distinguish the observable symptom from the root cause;
+- determine whether the correct fix belongs to data/state, a shared pattern, page composition, or one isolated instance;
+- search for sibling screens that may share the same defect or depend on the current behavior;
+- identify effects on desktop, narrow screens, keyboard use, focus, IME composition, reduced motion, themes, permissions, localization, and stale or failed data;
+- identify which user-visible states require validation.
 
-- 只凭截图猜测实现；
-- 为局部视觉效果随意引入新 UI 框架；
-- 用页面级偏移量掩盖共享组件问题；
-- 在不了解现有模式时重写整套交互；
-- 修改与任务无关的视觉风格。
+The agent MUST NOT:
 
-## 4. 实施原则
+- infer implementation solely from a screenshot;
+- introduce another UI framework for a local visual change;
+- use one-off offsets to hide a shared positioning or spacing defect;
+- rewrite an interaction model before understanding existing project conventions;
+- restyle unrelated areas without explicit scope;
+- treat hidden controls as authorization enforcement;
+- claim a behavior works without evidence.
 
-- 优先修复最小的正确抽象层级；
-- 优先复用项目现有能力，不创建近似重复组件；
-- 行为要求与具体库解耦；
-- 动画中间状态也属于产品状态，必须验证；
-- 空、加载、错误、成功、禁用和长文本都属于正常场景；
-- 用户界面只展示用户完成任务所需的信息。
+## 4. Implementation principles
 
-## 5. 输出要求
+- Fix the smallest correct responsibility boundary, not merely the fewest lines.
+- Reuse established project capabilities before creating a near-duplicate abstraction.
+- Express behavior independently from a specific UI library.
+- Treat animation and transition states as real product states.
+- Treat loading, empty, error, stale, disabled, permission-denied, long-content, and narrow-screen conditions as normal states.
+- Preserve browser navigation, focus, user-entered data, and meaningful route state.
+- Keep user interfaces limited to information users need to understand or complete their task.
+- Keep backend authorization and validation authoritative even when the UI reflects capabilities.
 
-进行实质修改前，AI SHOULD 简要说明：
+## 5. Required plan and delivery output
 
-- 根因；
-- 修改层级；
-- 可能受影响的同类界面；
-- 验证计划。
+Before a material implementation, the agent SHOULD state:
 
-完成后，AI MUST 报告：
+- the user-visible symptom and root cause;
+- the chosen fix layer;
+- affected sibling surfaces;
+- applicable rule IDs;
+- the validation plan and known constraints.
 
-- 改了什么；
-- 引用了哪些规则 ID；
-- 执行了哪些检查；
-- 哪些内容没有验证以及原因。
+After implementation, the agent MUST report:
 
-## 6. 偏离规范
+- what changed and where;
+- which rule IDs were applied;
+- which automated and browser checks ran;
+- evidence for the relevant states and viewports;
+- what was not verified and why;
+- remaining risks and rollback considerations.
 
-只有在项目约束或用户目标确实需要时才能偏离 MUST/SHOULD 规则。偏离必须记录：
+Use [`templates/FRONTEND_CHANGE_REPORT.md`](templates/FRONTEND_CHANGE_REPORT.md) or an equivalent concise format.
 
-- 规则 ID；
-- 业务原因；
-- 影响范围；
-- 替代保护措施；
-- 复查条件。
+## 6. Deviations
 
-不得静默偏离。
+A MUST or SHOULD rule may be deviated from only when a product, legal, platform, accessibility, or documented project constraint requires it. The deviation MUST record:
 
-## 7. 禁止向本仓库加入 UI 实现
+- rule ID;
+- scope;
+- reason;
+- user impact;
+- compensating safeguards;
+- validation method;
+- review trigger or expiry condition.
 
-本仓库 MUST NOT 包含：
+Silent deviations are prohibited. “The library behaves this way,” “this is faster,” and “this screen is special” are not sufficient reasons by themselves.
 
-- `.tsx`、`.jsx`、`.vue`、`.svelte`、`.css` 等前端实现文件；
-- UI 组件源码；
-- 组件库包装代码；
-- 可直接复制的框架实现片段；
-- 与特定项目绑定的业务组件。
+## 7. Repository boundary
 
-允许使用与框架无关的结构示意、流程图、伪代码和正确/错误对照。
+This repository MUST NOT contain:
+
+- `.tsx`, `.jsx`, `.vue`, `.svelte`, `.css`, or equivalent UI implementation files;
+- UI component source code;
+- wrappers around a particular component library;
+- copy-paste framework implementations;
+- project-specific business components;
+- screenshots that expose credentials, private customer data, or internal-only environments.
+
+Framework-neutral diagrams, state tables, pseudocode, acceptance criteria, and good/bad comparisons are allowed.

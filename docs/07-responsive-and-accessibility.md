@@ -1,41 +1,52 @@
-# 响应式与可访问性
+# Responsive Behavior and Accessibility
 
-## 响应式
+## Responsive behavior
 
-响应式不是把桌面页面缩小。窄屏下应重新决定：
+Responsive design is not a scaled-down desktop page. On narrow screens, decide again:
 
-- 哪些信息优先；
-- 哪些操作固定可达；
-- 表格是否转为卡片或分组列表；
-- 多列字段如何变为单列；
-- 弹层如何保持标题和操作可见。
+- which information has priority;
+- which actions must remain reachable;
+- whether a table becomes a grouped list or card view;
+- how multi-column forms become a logical sequence;
+- how overlays preserve title, context, errors, and actions;
+- whether secondary details collapse without hiding active state.
 
-至少验证一个典型桌面宽度和一个典型手机宽度，不得只依赖开发者工具中的静态截图。
+Validate at least one representative desktop width and one representative phone width. Include actual interaction, not only static screenshots.
 
-## 键盘
+## Zoom and text enlargement
 
-核心流程应支持：
+The interface must remain usable with browser zoom and enlarged text. Essential controls cannot overlap, disappear, or require two-dimensional scrolling simply because text grows.
 
-- Tab 和 Shift+Tab 导航；
-- Enter 或 Space 激活；
-- Escape 关闭适用的弹层；
-- 方向键操作适用的菜单和选择器；
-- 明确的焦点顺序与返回位置。
+## Touch
 
-不得出现焦点进入隐藏区域、关闭后丢失、被动画移动到无关元素等情况。
+Targets must be practical to hit and separated from destructive neighbors. Hover-only behavior requires a visible touch alternative. Gesture shortcuts require a conventional control when the gesture is not obvious or accessible.
 
-## 焦点可见性
+## Keyboard
 
-焦点样式必须在亮色和深色背景中可辨识，不能仅依赖轻微颜色变化。鼠标点击是否显示焦点可按产品策略决定，但键盘焦点必须始终可见。
+Core flows should support:
 
-## 颜色与状态
+- Tab and Shift+Tab navigation;
+- Enter or Space activation where appropriate;
+- Escape for applicable overlays;
+- arrow-key behavior for menus, options, and composite widgets;
+- logical focus order and restoration.
 
-错误、成功、选中和禁用不能只通过颜色传达。应同时使用文字、图标、形状或位置。
+Focus must not enter hidden content, disappear after an update, or move because an animation changes layout.
 
-## 动效
+## Focus visibility
 
-动效用于解释关系和状态转换，不用于装饰性拖延。必须考虑减少动效偏好，并确保关闭动效后功能仍完整。
+Keyboard focus must be clearly visible on light, dark, selected, disabled-adjacent, and high-density backgrounds. A subtle color change alone is not enough.
 
-## 语义与辅助技术
+## Color and status
 
-使用与行为匹配的语义控件。动态更新和错误应通过适当机制被感知，但避免每次数据刷新都产生噪声通知。
+Error, success, warning, selection, required state, and disabled state cannot rely only on color. Combine color with text, icons, shape, pattern, or position.
+
+## Motion
+
+Motion should explain relationship or state change, not delay interaction. Respect reduced-motion preferences and ensure shorter or removed motion still results in valid timing, focus, and tooltip behavior.
+
+## Semantics and assistive technology
+
+Use semantics that match behavior. Names, roles, states, relationships, errors, and live updates should be exposed in a way assistive technology can understand.
+
+Avoid announcing every background refresh. Announce meaningful changes and errors without creating repetitive noise.

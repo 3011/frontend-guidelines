@@ -1,65 +1,82 @@
-# 布局与视觉层级
+# Layout and Visual Hierarchy
 
-## 间距系统
+## Spacing system
 
-项目可以使用自己的尺寸体系，但必须保留可辨识的语义层级：
+A project may use its own scale, but it must preserve semantic levels:
 
-- 紧密关联元素：小间距；
-- 同组字段或控件：标准间距；
-- 独立语义区块：更大间距；
-- 页面主要区域：最大间距。
+- tightly related elements use a small gap;
+- fields or controls within one group use a standard gap;
+- independent semantic sections use a larger gap;
+- major page regions use the largest separation.
 
-推荐参考值为 8 / 16 / 24 / 32 像素，但规则关注比例与一致性，不绑定具体实现。
+A reference relationship such as 8 / 16 / 24 / 32 units may be useful, but the rule is about hierarchy and consistency, not mandated values.
 
-## 分隔线
+## Dividers
 
-分隔线只辅助层级，不能替代间距和标题。它的两侧必须有足够留白。
+A divider supports hierarchy; it does not create hierarchy by itself. Both sides need enough whitespace to prevent the adjacent content from appearing attached to the line.
 
-错误：
-
-```text
-说明文字
-----------------
-下一节标题
-```
-
-正确：
+Incorrect:
 
 ```text
-说明文字
+Description
+----------------
+Next section
+```
+
+Better:
+
+```text
+Description
 
 ----------------
 
-下一节标题
+Next section
 ```
 
-## 对齐与稳定性
+If a section needs a divider, it usually also needs a heading, spacing, or both.
 
-关键操作、状态、列标识和固定含义的信息应保持稳定位置。以下变化不得导致无意义跳动：
+## Alignment and stability
 
-- 文本从短变长；
-- 状态图标出现或消失；
-- 数据刷新；
-- 展开和收起；
-- 加载占位切换为真实内容。
+Primary actions, status markers, identifiers, and comparison columns should stay in predictable locations. Test changes caused by:
 
-## 长内容
+- short to long text;
+- optional icons or badges;
+- loading placeholders becoming content;
+- refresh and sorting;
+- expanded and collapsed state;
+- validation messages appearing;
+- translation and browser zoom.
 
-必须主动验证：
+Do not let content length push controls off-screen or make the same action appear at a different visual position in every row.
 
-- 中文长词组；
-- 没有空格的标识符；
-- 较长数字或地址；
-- 浏览器放大；
-- 窄屏；
-- 翻译后长度增加。
+## Long content
 
-可以换行、截断、滚动或重排，但关键操作不可消失。截断内容需要可访问的完整查看方式。
+Validate at least:
 
-## 密度
+- long translated text;
+- identifiers without spaces;
+- long numbers, addresses, paths, or URLs;
+- browser zoom and enlarged text;
+- narrow screens;
+- missing or unknown values.
 
-高密度不是把所有空白删除。密度应由任务频率和扫描需求决定：
+Wrapping, truncation, scrolling, disclosure, or reflow may be appropriate. Essential actions cannot disappear. Truncated information needs an accessible way to obtain the full value when the full value matters.
 
-- 高频运维列表可更紧凑；
-- 创建、编辑和风险确认需要更清晰的分组；
-- 首屏不应同时竞争多个主要操作。
+## Density
+
+Density follows frequency, comparison needs, device, and risk:
+
+- high-frequency operational lists may be compact;
+- creation and editing need readable grouping;
+- risky confirmation needs explicit scope and consequence;
+- dashboards should not force every metric to compete at equal prominence.
+
+Reducing whitespace without preserving grouping is not a density strategy.
+
+## Hierarchy before decoration
+
+Use order, grouping, typography, and spacing before adding borders, cards, shadows, or colors. Excess containers weaken hierarchy by making every area look equally important.
+
+## Stable regions during loading
+
+Loading placeholders should approximate the final structure when practical. Background refresh should preserve usable content rather than replacing the entire page with a blank or blocking state.

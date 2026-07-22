@@ -1,74 +1,102 @@
-# 数据、列表与筛选
+# Data, Lists, and Filters
 
-## 选择数据形态
+## Choose the data shape
 
-### 表格
+### Tables
 
-适合需要跨行横向比较、字段结构稳定、桌面操作密集的场景。
+Use a table when users need to compare stable fields across rows, scan structured operational data, sort columns, or perform dense repeated actions.
 
-表格不是默认答案。字段差异大、内容摘要为主或移动端优先时，列表或卡片通常更合适。
+A table is not the default answer. If fields vary widely, summaries are more important than comparison, or narrow-screen use dominates, a list or card view may be better.
 
-### 列表与卡片
+### Lists and cards
 
-适合：
+Use a list or card view when:
 
-- 每项内容结构不完全相同；
-- 主要任务是浏览摘要而不是横向比较；
-- 窄屏需要按信息优先级垂直排列；
-- 每项只有少量主要操作。
+- items have heterogeneous content;
+- the primary task is browsing summaries rather than horizontal comparison;
+- narrow screens need a vertical priority order;
+- each item has only a few actions.
 
-不要为每一行增加不必要的卡片边框和阴影。容器层级应与信息层级匹配。
+Do not add a border and shadow to every row without a hierarchy reason. Container emphasis should match information hierarchy.
 
-## 表格稳定性
+## Table stability
 
-必须主动验证：
+Validate:
 
-- 名称变长；
-- 状态图标出现或消失；
-- 行操作从一个变为多个；
-- 列排序；
-- 数据刷新；
-- 空值和异常值；
-- 窄屏或较大字体。
+- long names and identifiers;
+- optional badges or icons;
+- one vs several row actions;
+- sorting and refresh;
+- missing and exceptional values;
+- loading placeholders;
+- large text and narrow widths;
+- permission-dependent actions.
 
-关键标识、选择控件和行操作应保持可预测。不要因为内容长度让同一列在每行出现不同的视觉位置。
+Keep primary identifiers, selection, and row actions predictable. Do not allow content length to place the same control at a different visual coordinate in every row.
 
-## 排序
+## Sorting
 
-排序状态必须可见，并说明是升序、降序还是默认顺序。服务端排序与客户端排序不得产生“只排序当前页”却让用户误以为排序全部数据的情况。
+Make current sort column and direction visible. Distinguish default order from explicit ascending or descending order.
 
-## 搜索与筛选
+Do not sort only the current page while presenting the result as if the full dataset were sorted. Clarify server-side vs loaded-subset behavior.
 
-搜索适合模糊定位，筛选适合明确条件。两者可以组合，但必须让用户知道：
+## Search and filters
 
-- 当前搜索范围；
-- 哪些筛选正在生效；
-- 结果数量受哪些条件影响；
-- 如何单独清除或全部重置。
+Search supports fuzzy location; filters express explicit conditions. When combined, users should understand:
 
-即时搜索必须遵守焦点稳定与输入法规则。请求频率优化不能改变用户已经输入的内容或造成结果倒退。
+- the search scope;
+- active filters;
+- how conditions affect the count;
+- how to clear one filter or reset all;
+- whether conditions persist on refresh, return, or share.
 
-## 无结果
+Debouncing or request optimization must not alter entered text, lose focus, break composition, or let an older result replace a newer one.
 
-区分以下状态：
+## No results
+
+Distinguish:
 
 ```text
-系统中没有任何数据
-当前搜索没有匹配
-当前筛选组合没有匹配
-数据加载失败
-当前账号无权查看
+The system contains no data.
+The current search has no match.
+The active filter combination has no match.
+Data could not be loaded.
+The current account cannot view the data.
+Data exists outside the selected time or scope.
 ```
 
-每种状态需要不同的下一步建议。
+Each state requires a different explanation and next action.
 
-## 分页与增量加载
+## Counts and pagination
 
-必须明确展示的是：
+Identify whether a number is:
 
-- 当前页数量；
-- 当前已加载数量；
-- 总数量；
-- 估算数量。
+- visible rows;
+- loaded rows;
+- selected rows;
+- current page size;
+- filtered total;
+- global total;
+- an estimate.
 
-不要混用这些概念。返回列表时，应按任务需要恢复页码、滚动位置、搜索和筛选状态。
+Do not mix these meanings. Returning to a list should restore page, scroll, search, sort, and filters when that supports the workflow.
+
+## Bulk selection
+
+Selection controls must state their scope. “Select all” may mean:
+
+- all visible rows;
+- all rows on the current page;
+- all loaded results;
+- all filtered results;
+- the entire dataset.
+
+A filter, refresh, or page change must not silently broaden a destructive selection. Before execution, repeat the selected count and scope.
+
+## Row expansion and details
+
+Expanded content should not destabilize unrelated rows or hide the row identity. If details deserve navigation, bookmarking, or independent loading, prefer a route or dedicated detail surface over an oversized inline expansion.
+
+## Freshness and source
+
+When data drives operational decisions, expose relevant freshness and source information. Background refresh should preserve last-known data but distinguish stale content from a successful current result.

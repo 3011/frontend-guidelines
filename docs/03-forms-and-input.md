@@ -1,55 +1,84 @@
-# 表单与输入
+# Forms and Input
 
-## 字段结构
+## Field structure
 
-字段应形成稳定结构：
+A field should form a stable relationship:
 
 ```text
-标签
-必要说明
-输入区域
-错误或状态反馈
+Label
+Optional decision-supporting help
+Input or value
+Error, status, or constraint feedback
 ```
 
-标签不能只依赖 placeholder。单位、格式、范围和示例只在确有帮助时提供。
+Do not rely on a placeholder as the only label. Show units, formats, range, and examples only when they help users enter a valid value.
 
-## 语义分区
+## Group by user decisions
 
-复杂表单按照用户的决策顺序组织，而不是按照后端字段顺序。每个区块应有明确主题，相关字段放在一起。
+Organize complex forms around the order users make decisions, not the order of backend fields. Related fields belong together under a clear section title.
 
-高级选项默认收起时，也必须让用户知道其中包含什么以及当前是否使用默认值。
+When advanced options are collapsed, users should still be able to tell:
 
-## 焦点稳定
+- that advanced options exist;
+- whether defaults are active;
+- whether the section contains validation errors or non-default values;
+- what kind of decisions are inside.
 
-以下行为均视为缺陷：
+## Focus and identity stability
 
-- 输入一个字符后焦点跳出；
-- 列表过滤导致输入框重新挂载；
-- 状态刷新将光标移动到末尾；
-- 打开辅助信息后无法返回原字段；
-- 校验失败将焦点移动到无关区域。
+These are defects:
 
-修复时必须找到重新挂载、key 变化、条件渲染或状态归属等根因。
+- typing one character causes focus loss;
+- filtering remounts the input;
+- refresh moves the caret;
+- conditional rendering replaces the active control;
+- a validation update moves focus to an unrelated element;
+- opening helper content makes it impossible to return to the field.
 
-## 中文输入法
+Investigate unstable keys, remounts, state ownership, conditional trees, request races, and focus side effects rather than adding a local focus workaround first.
 
-组合输入期间，系统不得把尚未完成的拼音或候选文字当成最终查询。
+## Input method composition
 
-至少验证：
+During composition, unfinished text must not be treated as a final query or validated destructively.
 
-1. 开始中文组合输入；
-2. 候选未确认时界面保持稳定；
-3. 确认文字后再执行过滤或校验；
-4. 连续输入、删除和切换输入法仍正常。
+Validate this sequence:
 
-## 校验
+1. begin composition;
+2. change the composition candidate without losing focus;
+3. confirm the text;
+4. update search or validation after confirmation;
+5. continue typing, delete, and switch input methods;
+6. ensure an older request cannot replace newer results.
 
-- 能在输入时安全判断的问题可以即时反馈；
-- 依赖完整内容的问题在失焦或提交时反馈；
-- 不得在用户尚未完成输入时持续显示错误；
-- 错误必须说明如何修复；
-- 第一次提交失败后，应将焦点引导到首个可修复问题。
+The requirement applies to Chinese, Japanese, Korean, speech input, predictive keyboards, and other composition-based input.
 
-## 保存与取消
+## Validation timing
 
-存在未保存更改时，关闭、返回或切换上下文不得静默丢失数据。确认文案必须说明将丢失什么，而不是只问“是否确定”。
+- Validate immediately only when feedback is safe and useful during entry.
+- Validate on blur or submit when the complete value is required.
+- Do not show persistent errors before users have had a reasonable chance to finish.
+- Explain how to recover, not only what is invalid.
+- On failed submission, guide focus to the first actionable error and provide a summary when several errors are difficult to discover.
+
+## Defaults and derived values
+
+Defaults must be understandable and safe. A default value should not look like user-confirmed intent when it triggers a costly, destructive, or broad action.
+
+Derived, inherited, or server-controlled values should identify their source when users may otherwise believe they can edit or override them.
+
+## Save, cancel, and drafts
+
+Closing, navigating away, changing entity, refreshing, or session expiry must not silently discard meaningful work. Use one or more of:
+
+- explicit save and discard decisions;
+- safe auto-save with visible status;
+- recoverable drafts;
+- a clear warning that identifies what will be lost.
+
+Do not ask only “Are you sure?” State the consequence.
+
+## Read-only and locked fields
+
+Do not present non-editable data as enabled input controls. Use a presentation that communicates value and state. When useful, explain why editing is unavailable and what condition would allow it.
+
+Read-only does not mean inaccessible: values must remain selectable, readable, and available to assistive technology where appropriate.

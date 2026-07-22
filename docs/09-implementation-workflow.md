@@ -1,69 +1,106 @@
-# 前端实施工作流
+# Frontend Implementation Workflow
 
-## 1. 建立上下文
+## 1. Establish context
 
-修改前检查：
+Before editing, inspect:
 
-- 页面入口和用户主要任务；
-- 当前框架与已有组件；
-- 同类页面和共享模式；
-- 数据状态、权限与错误路径；
-- 现有测试和运行方式。
+- the page entry point and primary user task;
+- the framework, UI system, and existing patterns;
+- routing, state ownership, data fetching, and mutation behavior;
+- permission and lifecycle states;
+- sibling pages and shared components;
+- existing tests, fixtures, and run commands;
+- browser, locale, device, theme, and accessibility commitments.
 
-## 2. 定位根因
+## 2. Reproduce and describe the symptom
 
-记录：
+Record:
 
-- 用户可观察的症状；
-- 触发条件；
-- 根因所在层级；
-- 可能受影响的同类界面；
-- 不应被修改的边界。
+- the observable failure;
+- exact trigger conditions;
+- stable vs transition-state behavior;
+- affected viewports, input methods, roles, and data sizes;
+- evidence such as measured geometry, focus state, route state, or request order.
 
-## 3. 选择修复层级
+Do not infer the implementation only from the screenshot or symptom.
 
-按以下顺序判断：
+## 3. Identify the root cause
 
-1. 数据或状态模型是否错误；
-2. 共享交互模式是否错误；
-3. 页面组合是否错误；
-4. 仅当前实例是否特殊。
+Determine whether the cause is in:
 
-不要默认从当前页面添加补丁。
+1. server or data semantics;
+2. client state ownership or request ordering;
+3. a shared interaction pattern;
+4. page composition;
+5. an isolated instance.
 
-## 4. 实施
+Document why the selected boundary is the smallest correct fix.
 
-- 保持修改集中；
-- 复用项目现有语言和视觉体系；
-- 不无理由增加依赖；
-- 不重写无关区域；
-- 对复杂状态转换写清楚时序；
-- 保留可回滚性。
+## 4. Plan the state matrix
 
-## 5. 验证
+Select applicable states before implementation:
 
-先运行静态检查和现有测试，再进行真实浏览器验证。验证结果应覆盖规则要求，而不是只证明页面能加载。
+- normal, loading, stale, empty, partial, error, timeout;
+- long content, translation expansion, zoom, narrow screen;
+- keyboard, focus, IME composition, touch;
+- disabled, read-only, locked, permission denied;
+- transition, cancellation, duplicate submission;
+- conflict and restoration.
 
-涉及动画、定位和焦点的问题，应验证时间序列：开始前、变化中、完成后。
+Use [`../templates/FRONTEND_TASK_PLAN.md`](../templates/FRONTEND_TASK_PLAN.md) for complex tasks.
 
-## 6. 同类审计
+## 5. Implement
 
-修复共享根因后，搜索所有使用位置并检查：
+- Keep the change focused on the root cause.
+- Reuse the project's visual and interaction language.
+- Avoid new dependencies without a clear capability gap.
+- Do not rewrite unrelated surfaces.
+- Make state ownership explicit.
+- Define timing for complex transitions.
+- Preserve user input, browser history, and authoritative permission checks.
+- Keep the change reversible.
 
-- 是否自动得到修复；
-- 是否存在依赖旧行为的例外；
-- 是否需要迁移；
-- 是否需要增加回归测试。
+## 6. Run static and automated checks
 
-## 7. 交付报告
+Run the project's formatter, lint, type checks, unit tests, component tests, and production build as applicable.
 
-报告至少包括：
+A passing build proves only that the application compiles. It does not prove geometry, focus, overflow, input method, route restoration, or animation behavior.
+
+## 7. Validate in a real browser
+
+Verify observable outcomes at the relevant viewports and states. For animation, positioning, and focus defects, inspect:
+
+- before the transition;
+- during the transition;
+- after the transition settles.
+
+Use representative content and roles, including long values and permission-restricted states.
+
+## 8. Audit sibling surfaces
+
+Search every meaningful usage of the changed pattern and determine:
+
+- whether it receives the fix automatically;
+- whether any surface relies on the previous behavior;
+- whether migration is required;
+- whether the same defect appears in another form;
+- where regression coverage belongs.
+
+## 9. Deliver evidence
+
+The delivery report must include:
 
 ```text
-根因：
-修改层级：
-涉及规则：
-验证证据：
-未验证内容：
-风险与回滚：
+User-visible outcome:
+Root cause:
+Fix layer:
+Rules applied:
+Sibling surfaces reviewed:
+Automated checks:
+Browser evidence:
+Not verified:
+Remaining risk:
+Rollback path:
 ```
+
+Do not describe untested behavior as verified.

@@ -1,58 +1,85 @@
-# 弹层与浮动界面
+# Overlays and Floating UI
 
-## 选择正确容器
+## Choose the correct container
 
-### 居中模态
+### Focused modal
 
-适合：
+Appropriate for:
 
-- 创建、编辑；
-- 需要集中注意力的配置；
-- 删除和高风险确认；
-- 必须完成或取消后才能继续的流程。
+- creation and editing;
+- a configuration decision requiring focused attention;
+- destructive or high-risk confirmation;
+- a workflow that must be completed or cancelled before returning.
 
-长内容应让标题和主要操作保持可见，中间内容独立滚动。
+For long content, keep the title and primary actions reachable while the central content area scrolls. Avoid nested modal flows.
 
-### 侧边面板
+### Side panel
 
-适合：
+Appropriate for:
 
-- 辅助详情；
-- 当前页面的上下文信息；
-- 移动端导航；
-- 不阻断主任务的检查与预览。
+- auxiliary details;
+- context for the current page;
+- mobile navigation;
+- inspection or preview that does not block the primary task.
 
-不得因为侧边面板实现方便，就把同层级创建流程一部分放中间、一部分放侧边。
+Do not place equivalent creation or editing workflows in different containers merely because one implementation is convenient.
 
-## Select 与 Dropdown
+## Anchored popups
 
-默认表现应满足：
+Selects, menus, comboboxes, date pickers, and similar popups should normally:
 
-- 弹层从触发器下方展开；
-- 起始边与触发器对齐；
-- 与触发器保持清晰的小间距；
-- 宽度至少能容纳触发器和选项；
-- 不出现触发器局部露出或弹层错误重叠；
-- 接近视口边缘时合理翻转或调整；
-- 长选项、选中标记和图标不挤压主要文本。
+- open below the trigger when space allows;
+- align the logical start edge with the trigger;
+- preserve a small visible separation when overlap is not intentional;
+- be at least wide enough for the trigger and meaningful option content;
+- avoid partial overlap and exposed trigger borders;
+- flip or shift near viewport boundaries;
+- preserve option text when icons, checks, or shortcuts are present;
+- avoid covering the element that users must compare with the choices.
 
-视觉验收应在打开动画稳定后进行，同时检查动画过程中没有明显错位。
+Verify geometry after the opening transition settles and inspect the transition itself for visible jumps.
 
-## Tooltip
+## Viewport, keyboard, and safe areas
 
-Tooltip 用于补充简短信息，不承载必须阅读的说明。
+Floating content must account for:
 
-必须遵守：
+- browser viewport edges;
+- mobile on-screen keyboards;
+- safe-area insets;
+- fixed headers, footers, and sidebars;
+- zoomed text;
+- nested scroll containers.
 
-- 仅由明确 hover 或 keyboard focus 触发；
-- 已有可见文字时避免重复提示；
-- 布局动画期间禁用或抑制触发；
-- 页面挂载和状态恢复不得自动出现；
-- 多个 Tooltip 不得因一次布局变化同时打开；
-- 触屏用户不能依赖 Tooltip 才能完成任务。
+Long content should scroll within a bounded area rather than placing actions outside reach.
 
-## 关闭与焦点
+## Tooltips
 
-弹层打开后，焦点应进入合理位置；关闭后返回触发源或合理的后续位置。
+Tooltips provide brief supplementary information. They do not carry instructions required to complete the task.
 
-Escape、关闭按钮、外部点击和浏览器返回的行为必须与任务风险匹配。高风险或有未保存内容时，不应通过意外外部点击关闭。
+Requirements:
+
+- open only from explicit stable hover or keyboard focus;
+- avoid duplicating text already visible;
+- suppress triggers during layout and collapse transitions;
+- do not appear automatically on mount or restoration;
+- do not open in bulk after one layout change;
+- remain dismissible and non-blocking;
+- provide another path for touch users when the information is necessary.
+
+## Closing and focus
+
+Opening should place focus at a logical starting point. Closing should return focus to the trigger or another clear continuation point.
+
+Escape, close controls, outside interaction, browser navigation, and selection completion must match the task. Do not allow accidental outside dismissal when unsaved or high-risk work would be lost.
+
+## Stacking and nested overlays
+
+Avoid multiple modal layers. When nesting cannot be avoided, define:
+
+- which layer owns focus;
+- which background is inert;
+- which Escape action closes which layer;
+- which layer controls scroll;
+- where focus returns after each close.
+
+An overlay must never appear behind another blocking layer or become visually visible but unreachable.

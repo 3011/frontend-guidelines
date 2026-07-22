@@ -1,46 +1,64 @@
-# 用户界面文案
+# User Interface Language
 
-## 用户语言
+## Use product language
 
-界面只展示用户完成任务所需的信息。
+The interface should show only information users need to understand or complete their task.
 
-禁止直接展示：
+Do not expose statements such as:
 
-- “权限由后端强制校验”；
-- “此功能后续开发”；
-- “兼容旧接口”；
-- “这里使用某组件实现”；
-- 技术债、版本迁移和开发备注。
+- “Authorization is enforced by the backend.”
+- “This feature will be implemented later.”
+- “This endpoint is kept for compatibility.”
+- “This screen uses a particular component.”
+- internal migration notes, technical debt, or developer comments.
 
-这些内容属于开发文档、版本说明或运维信息，不属于普通业务页面。
+Such content belongs in engineering documentation, release notes, diagnostics, or administration surfaces designed for that audience.
 
-## 操作名称
+## Name actions explicitly
 
-优先使用“动词 + 对象”：
+Prefer a verb and object:
 
-- 保存设置；
-- 创建任务；
-- 停止扫描；
-- 删除记录；
-- 重新连接。
+- Save settings
+- Create task
+- Stop scan
+- Delete record
+- Reconnect account
 
-只有上下文极其明确时才使用“确定”“完成”等短词。
+Use “Confirm,” “Done,” or “Process” only when the result is already unmistakable from the immediate context.
 
-## 说明文字
+## Help text supports a decision
 
-说明文字应帮助用户做决定，回答：
+Useful help answers one or more of:
 
-- 这个选项改变什么；
-- 何时需要修改；
-- 默认行为是什么；
-- 是否存在风险。
+- What does this option change?
+- When should it be changed?
+- What is the default behavior?
+- What risk or cost does it introduce?
+- Where does this value come from?
 
-不要重复标签，不要解释实现。
+Do not repeat the label or explain implementation details.
 
-## 错误文案
+## Error messages
 
-用户文案应先说明可理解的问题，再提供恢复方法。内部标识可作为次要诊断信息，但不能替代说明。
+Lead with a user-understandable problem and a recovery path. Preserve entered data when possible. A diagnostic code may be secondary information for support, not a substitute for the explanation.
 
-## 一致术语
+Avoid blaming users. State the constraint and next step.
 
-同一概念在导航、标题、按钮和状态中使用同一名称。术语变更应全局检查，不应在单个页面创建别名。
+## Consistent terminology
+
+Use one term for the same concept across navigation, headings, actions, status, empty states, documentation links, and errors. A terminology change requires a search across the product, not a one-page alias.
+
+## Risk and scope language
+
+Before an impactful action, name:
+
+- the exact object or population affected;
+- whether the effect is immediate or queued;
+- whether it is reversible;
+- what dependent data or users may be affected.
+
+Confirmation copy must not hide scope behind generic words.
+
+## Concision and scanning
+
+Use short headings, direct sentences, and lists only when they improve scanning. Avoid repeated explanations in adjacent labels, help text, and tooltips.

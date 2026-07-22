@@ -1,205 +1,361 @@
 # Frontend Specification
 
-本文件是强制规则的紧凑入口。详细解释、例外和验收方法见 `docs/`。
+This file is the compact normative entry point. Detailed rationale, examples, exceptions, and acceptance guidance are in `docs/`.
 
 ## Core
 
-### FG-CORE-001 — 用户任务优先（MUST）
+### FG-CORE-001 — Prioritize the user task [MUST]
 
-界面结构、视觉层级和交互必须服务于用户当前任务，不得为了展示技术实现增加无关信息或操作。
+Structure, hierarchy, defaults, and actions must serve the user's current task. Do not add implementation details or controls that do not help the user understand or complete that task.
 
-### FG-CORE-002 — 保持项目一致性（MUST）
+### FG-CORE-002 — Preserve reasonable project consistency [MUST]
 
-优先复用项目内已经稳定、合理的模式。同类任务不得无理由采用不同布局或交互方式。
+Reuse established, sound patterns within the project. Equivalent tasks must not use different layouts, terms, or interaction models without a documented reason.
 
-### FG-CORE-003 — 修复根因（MUST）
+### FG-CORE-003 — Fix the root cause at the correct layer [MUST]
 
-必须在能够消除同类问题的最小正确层级修复，不得使用局部偏移、重复条件或一次性样式掩盖共享根因。
+Fix the smallest responsibility boundary that removes the class of defect. Do not hide a shared cause with local offsets, duplicated conditions, or one-off styles.
 
-### FG-CORE-004 — 默认行为必须验证（MUST）
+### FG-CORE-004 — Verify defaults instead of trusting them [MUST]
 
-框架、浏览器或 UI 库的默认行为不是验收依据。最终视觉、交互、可访问性和响应式表现必须实际验证。
+Framework, browser, and UI library defaults are not acceptance evidence. Verify the final visual, interaction, responsive, accessibility, and failure behavior.
+
+### FG-CORE-005 — Keep changes within product scope [MUST]
+
+Do not restyle, rename, or restructure unrelated surfaces while fixing a focused issue. Broader consistency work requires explicit scope and validation.
 
 ## Layout and hierarchy
 
-### FG-LAYOUT-001 — 间距表达层级（MUST）
+### FG-LAYOUT-001 — Spacing communicates hierarchy [MUST]
 
-同组元素、独立区块和页面主要区域必须使用可辨识的间距层级；不同语义区块之间的间距应大于同组字段之间的间距。
+Related elements, fields within a group, independent sections, and major page regions must use distinguishable spacing levels. Separation between semantic sections should exceed spacing within a section.
 
-### FG-LAYOUT-002 — 分隔元素不得贴住内容（MUST）
+### FG-LAYOUT-002 — Dividers must not touch content [MUST]
 
-分隔线、边框和区块边界不得直接贴住标题、说明文字、表单控件、按钮或卡片。
+Dividers, borders, and section boundaries must not sit directly against headings, descriptions, controls, buttons, or cards. Dividers supplement hierarchy; they do not replace spacing.
 
-### FG-LAYOUT-003 — 对齐必须稳定（MUST）
+### FG-LAYOUT-003 — Important alignment remains stable [MUST]
 
-名称长度、状态变化、图标出现或数据刷新不得造成关键操作、列标识和主要内容无意义跳动。
+Text length, status changes, icon appearance, loading transitions, and data refresh must not cause primary actions, identifiers, or comparison columns to jump without purpose.
 
-### FG-LAYOUT-004 — 长内容必须被设计（MUST）
+### FG-LAYOUT-004 — Long content is a designed state [MUST]
 
-长标题、长选项、中文、窄屏和放大字体不得破坏布局或隐藏关键操作。截断时必须保留获取完整信息的方式。
+Long labels, identifiers, translations, numbers, zoomed text, and narrow screens must not hide essential information or actions. Truncation must preserve a way to access the full value.
+
+### FG-LAYOUT-005 — Density follows task frequency and risk [SHOULD]
+
+High-frequency scanning surfaces may be compact; creation, editing, and risky decisions need stronger grouping and breathing room. Compactness must not erase hierarchy or hit targets.
 
 ## Forms and input
 
-### FG-FORM-001 — 字段关系明确（MUST）
+### FG-FORM-001 — Field relationships are explicit [MUST]
 
-每个输入必须有可识别标签；帮助文本、错误信息和单位必须与对应字段建立明确关系。
+Every input must have an identifiable label. Help text, units, constraints, status, and errors must be clearly associated with the correct field.
 
-### FG-FORM-002 — 输入状态保持稳定（MUST）
+### FG-FORM-002 — Input state remains stable [MUST]
 
-输入过程中不得因重新挂载、列表重排或状态更新而丢失焦点、光标位置或尚未提交的内容。
+State updates, filtering, validation, and list reordering must not remount the active input, lose focus, move the caret, or discard uncommitted text.
 
-### FG-FORM-003 — 支持输入法组合过程（MUST）
+### FG-FORM-003 — IME composition is respected [MUST]
 
-搜索、过滤和即时校验必须正确处理中文等输入法的 composition 过程，不得在组合输入完成前触发破坏性刷新。
+Search, filtering, and live validation must support input method composition. Do not treat uncommitted composition text as final input or trigger destructive refreshes before composition completes.
 
-### FG-FORM-004 — 表单按语义分区（SHOULD）
+### FG-FORM-004 — Forms follow user decisions [SHOULD]
 
-复杂表单应按用户决策顺序分区，并为区块提供标题和必要说明；不得仅依赖分隔线表达结构。
+Group complex forms by user intent and decision order rather than backend field order. Use headings and concise explanations; do not rely on dividers alone.
 
-### FG-FORM-005 — 错误就近且可恢复（MUST）
+### FG-FORM-005 — Errors are local, specific, and recoverable [MUST]
 
-错误信息必须靠近问题字段、说明如何恢复，并在错误修复后及时更新；不得只用颜色表达错误。
+Show errors near the affected field, explain how to recover, update them when corrected, and never rely on color alone.
+
+### FG-FORM-006 — Read-only state must not look editable [MUST]
+
+Values that cannot be edited must be presented as read-only information, not as enabled input or selection controls. Permission, lifecycle, or lock state must be understandable without trial and error.
+
+### FG-FORM-007 — Unsaved work must not disappear silently [MUST]
+
+Closing, navigating away, changing context, or reloading must not silently discard meaningful user input. Warn, preserve, or explicitly define safe auto-save behavior.
 
 ## Overlays and floating UI
 
-### FG-OVERLAY-001 — 模态与侧边面板按任务选择（MUST）
+### FG-OVERLAY-001 — Choose the container by task [MUST]
 
-创建、编辑、确认等需要集中注意力的业务流程优先使用居中模态；侧边面板用于辅助详情、上下文信息或导航。同层级业务流程必须保持一致。
+Use a focused modal for creation, editing, confirmation, or blocking decisions. Use a side panel for auxiliary detail, context, navigation, or non-blocking inspection. Equivalent workflows must be consistent.
 
-### FG-OVERLAY-002 — 选择弹层不得不完整覆盖触发器（MUST）
+### FG-OVERLAY-002 — Anchored popups must be visually complete [MUST]
 
-选择器和下拉弹层应完整、稳定地定位。默认从触发器下方展开并对齐起始边；不得出现只覆盖一部分触发器、露边或错误偏移。
+Selects, menus, and similar popups must have stable placement. Prefer opening below and aligning the logical start edge; avoid partial overlap, exposed trigger edges, unexplained offsets, or width that clips meaningful options.
 
-### FG-OVERLAY-003 — 弹层必须留在可见视口（MUST）
+### FG-OVERLAY-003 — Floating content remains within the usable viewport [MUST]
 
-弹层必须避让视口边缘和固定区域；内容过长时应在合理区域内滚动，不得让关键操作不可达。
+Popups must avoid viewport edges, keyboards, safe areas, and fixed regions. Long content must scroll within a bounded region while essential actions remain reachable.
 
-### FG-OVERLAY-004 — Tooltip 只响应明确意图（MUST）
+### FG-OVERLAY-004 — Tooltips require explicit user intent [MUST]
 
-Tooltip 只能由稳定的悬停或键盘焦点触发。布局变化、挂载、折叠动画和状态恢复不得批量或意外触发 Tooltip。
+Tooltips may open only from stable hover or keyboard focus. Mounting, layout changes, collapse transitions, state restoration, and scrolling must not open one or many tooltips accidentally.
 
-### FG-OVERLAY-005 — 关闭行为可预测（MUST）
+### FG-OVERLAY-005 — Close and focus behavior is predictable [MUST]
 
-Escape、外部点击、关闭按钮和返回操作必须有一致且可预测的结果；存在未保存更改时必须防止静默丢失。
+Escape, outside interaction, close controls, and browser navigation must have consistent effects appropriate to the task risk. Opening and closing must place focus in a logical location.
+
+### FG-OVERLAY-006 — Stacking and background behavior remain coherent [MUST]
+
+Nested overlays, scroll locking, background interaction, and focus containment must not create unreachable content, trapped users, hidden confirmations, or multiple competing modal layers.
 
 ## Navigation
 
-### FG-NAV-001 — 当前所在位置明确（MUST）
+### FG-NAV-001 — Current location is identifiable [MUST]
 
-用户必须能识别当前页面、当前导航项和可返回路径；不得只依赖颜色区分当前状态。
+Users must be able to identify the current page, active navigation item, and return path. Do not communicate the current state with color alone.
 
-### FG-NAV-002 — 折叠导航无瞬时噪声（MUST）
+### FG-NAV-002 — Collapsible navigation has no transient noise [MUST]
 
-导航折叠或展开过程中不得出现 Tooltip 批量弹出、文字闪现、内容跳动或不可点击的中间状态。
+During collapse or expansion, navigation must not produce bulk tooltips, flashing labels, moving hit areas, or unusable intermediate states.
 
-### FG-NAV-003 — 导航不承担业务说明（SHOULD）
+### FG-NAV-003 — Navigation labels stay concise and stable [SHOULD]
 
-导航标签应短、稳定、可扫描。详细说明放在页面内容区，不得让菜单承担长篇解释。
+Navigation uses short, familiar, consistent terms. Long explanations, volatile status text, and implementation details belong in page content.
+
+### FG-NAV-004 — Browser history and deep links remain meaningful [MUST]
+
+Back, forward, refresh, and direct URLs must preserve or restore meaningful location and context. Do not trap navigation entirely in ephemeral component state when users need to return or share it.
 
 ## Feedback and status
 
-### FG-STATE-001 — 所有关键状态有反馈（MUST）
+### FG-STATE-001 — Critical states have explicit feedback [MUST]
 
-异步区域必须设计加载、空、错误、成功、部分完成和重试状态，不得以空白或永久转圈代替说明。
+Async regions must account for initial loading, background refresh, empty data, partial data, success, recoverable error, terminal error, permission denial, offline state, and timeout where relevant.
 
-### FG-STATE-002 — 操作反馈与影响匹配（MUST）
+### FG-STATE-002 — Feedback intensity matches impact [MUST]
 
-反馈强度应与操作影响匹配。轻量成功避免打断；失败必须可见且可恢复；破坏性操作必须清楚说明影响。
+Use non-blocking feedback for lightweight success, visible recoverable feedback for failure, and clear pre-action explanation for destructive or broad-impact operations.
 
-### FG-STATE-003 — 禁用状态说明原因（SHOULD）
+### FG-STATE-003 — Disabled actions explain recovery [SHOULD]
 
-当关键操作不可用时，应让用户理解原因和恢复条件，不得只把按钮置灰而没有上下文。
+When a meaningful action is unavailable, users should be able to understand why and what condition will enable it. A disabled appearance alone is insufficient for important actions.
+
+### FG-STATE-004 — Stale and refreshing data are distinguishable [MUST]
+
+Background refresh must not erase usable data without need. When freshness matters, distinguish last known data, refreshing state, stale state, and failed refresh.
+
+### FG-STATE-005 — Progress is truthful [MUST]
+
+Progress indicators must not imply precision the system does not have. Long-running work should expose a meaningful stage, completion signal, cancellation policy, or safe way to leave.
+
+### FG-STATE-006 — Optimistic changes are reversible or reconcilable [MUST]
+
+Optimistic updates must define failure recovery, duplicate prevention, and reconciliation with authoritative data. Never leave the interface showing success after the server rejected the change.
 
 ## Data, lists, and filters
 
-### FG-DATA-001 — 数据展示形式服从任务（MUST）
+### FG-DATA-001 — Data shape follows the comparison task [MUST]
 
-需要横向比较固定字段时使用表格；需要浏览异构摘要或窄屏内容时使用列表或卡片。不得因为现有组件方便而选择不适合的数据形态。
+Use tables when users compare stable fields across rows; use lists or cards for heterogeneous summaries and narrow-screen priority. Do not choose a shape only because a component already exists.
 
-### FG-DATA-002 — 关键列与操作保持稳定（MUST）
+### FG-DATA-002 — Key columns and row actions remain stable [MUST]
 
-数据刷新、名称长度和状态变化不得使关键列、行操作或选择控件无意义移动。次要信息可以折叠，但主标识和主要操作必须可预测。
+Refresh, long names, optional icons, and status changes must not move core identifiers, selection controls, or row actions unpredictably.
 
-### FG-DATA-003 — 排序与筛选状态可见（MUST）
+### FG-DATA-003 — Sort and filter state is visible [MUST]
 
-当前排序、筛选条件和搜索范围必须可识别；刷新、分页和返回页面时是否保留状态必须符合用户预期。
+Users must be able to identify the active sort, search scope, and filters. Clarify whether sorting applies to all data or only the loaded subset.
 
-### FG-DATA-004 — 数量与范围表达准确（MUST）
+### FG-DATA-004 — Counts and ranges are precise [MUST]
 
-分页、虚拟列表或部分加载时，必须区分当前显示数量、已加载数量和总数量，不得用模糊数字造成完整性误解。
+Distinguish displayed count, loaded count, selected count, total count, and estimated count. Pagination and partial loading must not imply completeness that is not available.
 
-### FG-FILTER-001 — 搜索与筛选不打断输入（MUST）
+### FG-DATA-005 — Selection has an explicit scope [MUST]
 
-结果更新不得重新挂载输入控件、抢夺焦点或破坏输入法组合过程；清空搜索后应恢复可理解的默认结果。
+Bulk selection must make clear whether it applies to visible rows, the current page, loaded results, filtered results, or the full dataset. Refresh and filter changes must not silently broaden a selection.
 
-### FG-FILTER-002 — 活跃筛选可发现且可清除（MUST）
+### FG-DATA-006 — Data freshness and time context are visible when relevant [MUST]
 
-用户必须能识别哪些筛选已生效，并能单独清除或重置全部筛选。无结果状态应区分“没有数据”和“筛选后无匹配”。
+When decisions depend on freshness, show the relevant timestamp, timezone, source, or update status. Do not present stale or locally formatted time as universally current.
+
+### FG-FILTER-001 — Search and filtering do not interrupt input [MUST]
+
+Result updates must not remount the input, steal focus, reset the caret, break IME composition, or roll results backward because an older request finished later.
+
+### FG-FILTER-002 — Active filters are discoverable and removable [MUST]
+
+Users must be able to identify each active filter and clear one or all. Distinguish an empty dataset from no results under the current filters.
+
+### FG-FILTER-003 — Meaningful filter state can be restored [SHOULD]
+
+When returning, refreshing, or sharing a view is part of the workflow, preserve search, sort, filter, page, and view state in an appropriate durable location such as the URL.
 
 ## Actions and controls
 
-### FG-ACTION-001 — 主要操作层级唯一（SHOULD）
+### FG-ACTION-001 — One primary action per clear scope [SHOULD]
 
-一个明确作用域内通常只有一个视觉上最突出的主要操作。次要、取消和破坏性操作不得与主要操作竞争。
+A page, panel, dialog, card, or row normally has one visually dominant action. Secondary, cancel, and destructive actions must not compete with it.
 
-### FG-ACTION-002 — 操作位置与点击区域稳定（MUST）
+### FG-ACTION-002 — Action position and hit area remain stable [MUST]
 
-同类页面的主要操作应位于一致位置；文字长度、加载状态和图标变化不得导致点击区域明显跳动或难以命中。
+Equivalent flows place actions consistently. Text length, loading state, and icon changes must not cause severe movement or shrink the hit target below practical use.
 
-### FG-ACTION-003 — 图标不能替代必要含义（MUST）
+### FG-ACTION-003 — Icons do not replace necessary meaning [MUST]
 
-只有在含义广泛明确且存在可访问名称时才能使用纯图标操作。高风险、低频或含义可能歧义的操作必须有可见文字。
+Icon-only actions require a widely understood meaning, an accessible name, keyboard access, and an adequate target. Risky, rare, or ambiguous actions require visible text.
 
-### FG-ACTION-004 — 破坏性操作与常规操作分离（MUST）
+### FG-ACTION-004 — Destructive actions are separated [MUST]
 
-删除、停止、重置等破坏性操作必须在位置和视觉上与常规操作区分，并避免成为默认焦点或最容易误触的操作。
+Delete, stop, reset, revoke, and similar actions must be visually or spatially distinct from routine actions and must not become the default focus.
 
-## Responsive and accessibility
+### FG-ACTION-005 — Submission prevents accidental duplication [MUST]
 
-### FG-RESP-001 — 响应式是信息重排（MUST）
+A pending operation must prevent accidental duplicate submission without losing focus or recovery. Failure must return the control to a safe retry state.
 
-窄屏适配必须重新安排信息优先级和操作顺序，不得仅按比例压缩桌面布局。
+### FG-ACTION-006 — Visible actions reflect capabilities, not security claims [MUST]
 
-### FG-A11Y-001 — 键盘可完成核心流程（MUST）
+The interface should show only actions relevant to the current capability, but hiding or disabling an action is not authorization. Server-side enforcement remains authoritative.
 
-核心任务必须可通过键盘完成，焦点顺序符合视觉顺序，焦点不得被隐藏、困住或意外重置。
+## Responsive behavior and accessibility
 
-### FG-A11Y-002 — 焦点可见（MUST）
+### FG-RESP-001 — Responsive design reprioritizes information [MUST]
 
-所有可交互元素在键盘聚焦时必须具有清晰可见的焦点指示，且不只依赖颜色变化。
+Narrow-screen behavior must reorder, group, collapse, or transform content according to user priority. It must not merely scale down the desktop layout.
 
-### FG-A11Y-003 — 动态变化可理解（MUST）
+### FG-RESP-002 — Essential actions remain reachable [MUST]
 
-加载完成、错误、状态变化和弹层打开后，焦点与辅助信息必须让用户理解发生了什么，不得制造突然的上下文丢失。
+On narrow screens, zoomed text, touch keyboards, and safe-area insets must not hide primary actions, close controls, or error recovery.
 
-## Content
+### FG-RESP-003 — Touch targets and gestures have alternatives [MUST]
 
-### FG-CONTENT-001 — 只展示用户语言（MUST）
+Touch targets must be practical to hit. Hover-only and gesture-only interactions require a visible or keyboard-accessible alternative.
 
-界面不得展示开发计划、实现细节、后端校验说明、兼容层、技术债或面向开发者的注释，除非用户任务本身需要这些信息。
+### FG-A11Y-001 — Keyboard users can complete core flows [MUST]
 
-### FG-CONTENT-002 — 操作用明确动词命名（SHOULD）
+Core tasks must work by keyboard with focus order matching the visual and logical order. Focus must not enter hidden content, disappear, or become trapped unexpectedly.
 
-按钮和菜单项应使用具体动作，例如“保存设置”“停止任务”，避免在含义不明确时使用“确定”“处理”等模糊词。
+### FG-A11Y-002 — Keyboard focus is visibly distinct [MUST]
 
-### FG-CONTENT-003 — 风险在操作前说明（MUST）
+Every interactive element must have a clear keyboard focus indicator that remains visible across themes and backgrounds.
 
-不可逆、广泛影响或耗时操作必须在执行前说明对象、范围和结果，不得只在失败后解释。
+### FG-A11Y-003 — Dynamic changes are understandable [MUST]
 
-## Quality
+Loading completion, errors, state changes, and opened overlays must provide appropriate focus and assistive information without producing repetitive announcement noise.
 
-### FG-QUALITY-001 — 验证完整状态矩阵（MUST）
+### FG-A11Y-004 — Color is never the only signal [MUST]
 
-至少验证正常、加载、空、错误、禁用、长内容、窄屏、键盘和动画中间状态；涉及输入时还必须验证中文输入法。
+Selection, status, success, error, warning, and disabled state require text, shape, iconography, position, or another non-color signal.
 
-### FG-QUALITY-002 — 检查同类界面（MUST）
+### FG-A11Y-005 — Reduced motion preserves function [MUST]
 
-修复共享模式后必须检查同类页面，避免只修复截图中的一个实例或制造新的不一致。
+Respect reduced-motion preferences. Removing or shortening motion must not remove information, prevent completion, or expose invalid intermediate states.
 
-### FG-QUALITY-003 — 自动测试聚焦行为结果（SHOULD）
+## Content and terminology
 
-自动测试应验证用户可观察的结果与关键几何关系，而不是绑定某个组件库的内部结构。
+### FG-CONTENT-001 — User interfaces use user language [MUST]
 
-### FG-QUALITY-004 — 未验证内容必须披露（MUST）
+Do not expose implementation notes, backend enforcement descriptions, compatibility layers, development plans, technical debt, stack traces, or internal comments unless the user's task specifically requires diagnostic detail.
 
-完成报告必须明确列出已验证和未验证内容，不得用“应该正常”代替证据。
+### FG-CONTENT-002 — Actions use explicit verbs [SHOULD]
+
+Use concrete labels such as “Save settings,” “Stop scan,” or “Delete 12 records.” Avoid vague labels such as “Confirm” when the action is not already obvious.
+
+### FG-CONTENT-003 — Risk is explained before execution [MUST]
+
+Before irreversible, broad-impact, or expensive actions, explain the object, scope, consequence, and recovery status.
+
+### FG-CONTENT-004 — Help text supports decisions [SHOULD]
+
+Help text should explain what changes, when the option matters, the default behavior, or the risk. It should not repeat the label or describe implementation.
+
+### FG-CONTENT-005 — Terminology is consistent [MUST]
+
+Use one user-facing term for the same concept across navigation, headings, actions, status, and errors. A terminology change requires a project-wide audit.
+
+## Performance and resilience
+
+### FG-PERF-001 — User input receives prompt feedback [MUST]
+
+Typing, selecting, opening controls, and invoking common actions must remain responsive under expected data and device conditions. Heavy work must not block input without visible feedback.
+
+### FG-PERF-002 — Loading preserves layout stability [SHOULD]
+
+Placeholders and progressive rendering should avoid large, unnecessary layout shifts. Do not replace stable usable content with a blank full-screen loading state during background work.
+
+### FG-PERF-003 — Large collections use bounded rendering [MUST]
+
+Large tables, lists, menus, logs, and option sets must use pagination, incremental loading, virtualization, search, or another bounded strategy appropriate to the task.
+
+### FG-PERF-004 — Failure and slow networks remain usable [MUST]
+
+Expected latency, retries, partial failure, and offline transitions must not duplicate actions, lose input, or leave the interface in an indeterminate state.
+
+## Permissions, security, and privacy
+
+### FG-SEC-001 — The UI is not an authorization boundary [MUST]
+
+Client-side visibility and disabled state may communicate capability but must never be the sole enforcement of permissions or data access.
+
+### FG-SEC-002 — Sensitive data is minimized and protected [MUST]
+
+Do not expose secrets, tokens, private identifiers, hidden fields, or sensitive diagnostics in visible UI, URLs, logs, analytics, clipboard content, or error messages without explicit need and protection.
+
+### FG-SEC-003 — Untrusted content is treated as untrusted [MUST]
+
+User-generated or remote content must not be rendered as executable markup or interpreted commands without an explicit sanitization and trust model.
+
+### FG-SEC-004 — High-impact external effects are explicit [MUST]
+
+Copying secrets, downloading sensitive files, opening external destinations, revoking access, or triggering broad remote actions must make the target and consequence clear before execution.
+
+## Localization and formatting
+
+### FG-I18N-001 — Layout tolerates text expansion [MUST]
+
+Labels, actions, navigation, tables, and overlays must tolerate longer translations and scripts without relying on fixed English string lengths.
+
+### FG-I18N-002 — Values use locale-aware formatting [MUST]
+
+Dates, times, numbers, currencies, units, plural forms, and sorting must use explicit locale-aware rules appropriate to the product and data source.
+
+### FG-I18N-003 — Timezone and relative-time semantics are explicit [MUST]
+
+When time affects decisions, identify the timezone or source and avoid ambiguous phrases such as “today” across users, servers, and stored data.
+
+## State, routing, and persistence
+
+### FG-ROUTE-001 — User-relevant view state has deliberate ownership [MUST]
+
+Decide explicitly whether search, filters, sort, page, selected entity, expanded section, and draft data belong in the URL, durable storage, server state, or ephemeral component state.
+
+### FG-ROUTE-002 — Restoration is safe and understandable [MUST]
+
+Refresh, return navigation, reconnect, and session restoration must not revive stale destructive intent, silently submit drafts, or place users in a context they cannot understand.
+
+### FG-ROUTE-003 — Back and forward navigation preserve expectations [MUST]
+
+Browser navigation must not unexpectedly close unrelated work, skip meaningful states, duplicate requests, or trap users in modal-only history entries.
+
+### FG-ROUTE-004 — Concurrent edits and stale writes are handled [MUST]
+
+When data may change elsewhere, detect or explain conflicts, preserve user work where practical, and avoid silently overwriting newer authoritative state.
+
+## Quality and delivery
+
+### FG-QUALITY-001 — Validate the relevant state matrix [MUST]
+
+At minimum, validate normal, loading, empty, error, disabled, long-content, narrow-screen, keyboard, and transition states. Input work also validates IME composition; data work validates stale and partial states where relevant.
+
+### FG-QUALITY-002 — Audit sibling surfaces [MUST]
+
+After changing a shared pattern, inspect every meaningful usage for automatic improvement, incompatible assumptions, required migration, and regression coverage.
+
+### FG-QUALITY-003 — Tests assert observable outcomes [SHOULD]
+
+Automated tests should assert user-visible behavior, focus, state, and critical geometry rather than a particular UI library's private structure.
+
+### FG-QUALITY-004 — Browser validation covers time and geometry [MUST]
+
+Positioning, animation, focus, overflow, and responsive defects require real browser validation at stable states and relevant transition points.
+
+### FG-QUALITY-005 — Unverified claims are disclosed [MUST]
+
+Delivery reports must distinguish verified evidence, inferred behavior, skipped checks, and environmental limitations. “Should work” is not evidence.
+
+### FG-QUALITY-006 — Regression coverage matches the root cause [SHOULD]
+
+Add or update the smallest durable test that would fail for the original defect, especially for shared interactions, focus loss, popup geometry, navigation state, and permission-dependent actions.

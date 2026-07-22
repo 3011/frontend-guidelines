@@ -1,4 +1,4 @@
-name: Docs
+name: Documentation validation
 
 on:
   push:
@@ -16,5 +16,5 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - name: Validate guidelines repository
+      - name: Validate English documentation contract
         run: python3 scripts/validate.py

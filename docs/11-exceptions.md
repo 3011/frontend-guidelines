@@ -1,35 +1,55 @@
-# 规范偏离与例外
+# Deviations and Exceptions
 
-规范不是替代产品判断。项目可以偏离，但必须显式记录。
+This specification supports product judgment; it does not replace it. A project may deviate, but the deviation must be explicit and reviewable.
 
-## 可接受的偏离
+## Acceptable reasons
 
-常见合理原因：
+Common valid reasons include:
 
-- 行业或法律强制要求；
-- 目标设备能力限制；
-- 无障碍需求要求不同交互；
-- 项目已经存在且无法立即迁移的稳定模式；
-- 用户在当前任务中明确要求不同方案。
+- a legal or industry requirement;
+- a target-device limitation;
+- a specific accessibility need;
+- a stable legacy pattern that cannot be migrated immediately;
+- a deliberate product experiment with defined evidence;
+- an explicit current user requirement;
+- a security or privacy constraint that requires a different interaction.
 
-“实现更快”“组件默认如此”“只在这里特殊”不是充分理由。
+“The library behaves this way,” “this is faster to implement,” and “this screen is special” are not sufficient reasons on their own.
 
-## 记录格式
+## Required record
 
 ```text
-偏离规则：FG-...
-范围：页面、流程或组件使用位置
-原因：
-用户影响：
-替代保护措施：
-验证方式：
-复查条件或到期时间：
+Rule: FG-...
+Scope: page, workflow, role, viewport, or pattern usage
+Reason:
+User impact:
+Compensating safeguards:
+Validation:
+Review trigger or expiry:
+Owner:
 ```
 
-## 临时偏离
+A deviation should be narrow. Do not use one exception to exempt an entire product when only one workflow differs.
 
-临时偏离必须有复查条件。条件满足后应删除偏离，而不是让临时方案永久化。
+## Temporary deviations
 
-## 规则本身不适用
+A temporary deviation requires a review condition or expiry. When the condition is met, remove the deviation or convert it into an intentional permanent project rule with evidence.
 
-若某条规则与任务无关，可标记“不适用”，无需创建偏离记录。但不得把“未验证”写成“不适用”。
+## Experiments
+
+An experiment may temporarily vary a SHOULD requirement when:
+
+- the hypothesis and success metric are defined;
+- assignment does not create a legal, privacy, security, or accessibility violation;
+- users can still complete the task;
+- the losing variant is removed after evaluation.
+
+Do not experiment by silently violating a MUST requirement.
+
+## Not applicable
+
+A rule may be marked not applicable when the state genuinely cannot occur. This does not require a deviation record. “Not tested,” “not implemented yet,” and “environment unavailable” are not equivalent to not applicable.
+
+## Specification defects
+
+When a rule is unclear or wrong for a broad class of products, open a specification change rather than accumulating project-level exceptions. Include real user evidence and migration impact.

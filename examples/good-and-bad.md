@@ -1,107 +1,228 @@
-# 正确与错误示例
+# Good and Bad Examples
 
-本文件只使用与框架无关的结构示意。
+These examples use framework-neutral structure and behavior descriptions.
 
-## 表单区块
+## Form sections
 
-错误：
+Bad:
 
 ```text
-[字段]
-说明
+[Field]
+Description
 ----------------
-下一节
+Next section
 ```
 
-问题：说明、分隔线和下一节没有语义间距。
+Problem: the description, divider, and next section have no semantic spacing.
 
-正确：
+Better:
 
 ```text
-[字段]
-说明
+[Field]
+Description
 
 ----------------
 
-下一节标题
-[字段]
+Next section heading
+[Field]
 ```
 
-对应：`FG-LAYOUT-001`、`FG-LAYOUT-002`。
+Rules: `FG-LAYOUT-001`, `FG-LAYOUT-002`.
 
-## 选择弹层
+## Anchored select popup
 
-错误：
+Bad:
 
 ```text
-┌──触发器────────┐
-│ 当前值         │
-└────────────────┘
-  ┌──弹层──────────┐
-  │ 选项           │
-  └────────────────┘
+┌── Trigger ──────────┐
+│ Current value       │
+└─────────────────────┘
+  ┌── Popup ────────────┐
+  │ Option               │
+  └──────────────────────┘
 ```
 
-问题：弹层与触发器错误重叠，触发器边缘露出。
+Problem: the popup partially overlaps the trigger and leaves an exposed edge.
 
-正确：
+Better:
 
 ```text
-┌──触发器────────┐
-│ 当前值         │
-└────────────────┘
+┌── Trigger ──────────┐
+│ Current value       │
+└─────────────────────┘
 
-┌──弹层──────────┐
-│ 选项           │
-└────────────────┘
+┌── Popup ────────────┐
+│ Option              │
+└─────────────────────┘
 ```
 
-对应：`FG-OVERLAY-002`。
+Rules: `FG-OVERLAY-002`, `FG-QUALITY-004`.
 
-## 折叠导航 Tooltip
+## Collapsible navigation tooltip
 
-错误流程：
+Bad sequence:
 
 ```text
-点击折叠 → 宽度动画开始 → 所有 Tooltip 立即启用 → 多个提示闪现
+Collapse requested
+→ width transition starts
+→ all tooltips become active immediately
+→ several tooltips flash open
 ```
 
-正确流程：
+Better sequence:
 
 ```text
-点击折叠 → 动画期间抑制 Tooltip → 布局稳定 → 用户明确 hover/focus 后显示
+Collapse requested
+→ suppress tooltip triggers during transition
+→ layout reaches the collapsed state
+→ enable tooltip behavior
+→ show one tooltip only after explicit hover or focus
 ```
 
-对应：`FG-OVERLAY-004`、`FG-NAV-002`。
+Rules: `FG-OVERLAY-004`, `FG-NAV-002`, `FG-A11Y-005`.
 
-## 搜索输入
+## Search input
 
-错误流程：
+Bad sequence:
 
 ```text
-输入一个字符 → 列表刷新 → 输入框重新挂载 → 焦点丢失
+Type one character
+→ result list refreshes
+→ input is remounted
+→ focus and composition are lost
 ```
 
-正确流程：
+Better sequence:
 
 ```text
-输入持续存在 → 状态更新不替换输入控件 → 组合输入完成后更新结果
+Input identity remains stable
+→ composition completes
+→ query state updates
+→ older responses cannot replace newer results
 ```
 
-对应：`FG-FORM-002`、`FG-FORM-003`。
+Rules: `FG-FORM-002`, `FG-FORM-003`, `FG-FILTER-001`.
 
-## 用户文案
+## Read-only record
 
-错误：
+Bad:
 
 ```text
-权限由后端强制校验，页面只展示当前角色允许的操作。
+[Enabled-looking team name input]
+[Enabled-looking match selector]
+
+No save action is available.
 ```
 
-正确：
+Problem: the interface implies that editing is possible even though the record is locked.
+
+Better:
 
 ```text
-当前账号没有编辑权限。
+Team: North Division
+Match: Game 3
+Status: Locked after publication
+Action: Create revision
 ```
 
-对应：`FG-CONTENT-001`。
+Rules: `FG-FORM-006`, `FG-ACTION-006`, `FG-CONTENT-004`.
+
+## Permission message
+
+Bad:
+
+```text
+Authorization is enforced by the backend. The frontend only renders actions
+allowed by the current role.
+```
+
+Better:
+
+```text
+You can view this configuration, but you do not have permission to edit it.
+```
+
+Rules: `FG-CONTENT-001`, `FG-SEC-001`, `FG-FORM-006`.
+
+## Background refresh
+
+Bad:
+
+```text
+Visible data
+→ background refresh begins
+→ entire page becomes blank loading state
+→ refresh fails
+→ user loses the last known result
+```
+
+Better:
+
+```text
+Keep last known data visible
+→ show refreshing status
+→ on failure, mark data as stale and provide retry
+```
+
+Rules: `FG-STATE-004`, `FG-PERF-002`, `FG-PERF-004`.
+
+## Bulk selection
+
+Bad:
+
+```text
+Select all
+Selected: 50
+Delete
+```
+
+The user cannot tell whether 50 means the page, loaded rows, filtered rows, or all data.
+
+Better:
+
+```text
+50 rows on this page selected
+[Select all 4,820 filtered results]
+[Delete 50 selected rows]
+```
+
+Rules: `FG-DATA-004`, `FG-DATA-005`, `FG-CONTENT-003`.
+
+## Route and filters
+
+Bad:
+
+```text
+Apply several filters
+→ open a detail page
+→ press Back
+→ all filters and scroll position are lost
+```
+
+Better:
+
+```text
+Meaningful filter, sort, and page state is restorable
+→ Back returns to the previous working context
+```
+
+Rules: `FG-NAV-004`, `FG-FILTER-003`, `FG-ROUTE-001`.
+
+## Destructive confirmation
+
+Bad:
+
+```text
+Are you sure?
+[Cancel] [Confirm]
+```
+
+Better:
+
+```text
+Delete 12 scan results?
+This cannot be undone and does not stop active scans.
+[Cancel] [Delete 12 results]
+```
+
+Rules: `FG-ACTION-004`, `FG-CONTENT-002`, `FG-CONTENT-003`.

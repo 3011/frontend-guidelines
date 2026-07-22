@@ -1,28 +1,30 @@
-## 变更类型
+## Change type
 
-- [ ] 澄清，不改变规则含义
-- [ ] 新增规则
-- [ ] 修改既有规则
-- [ ] 模板、示例或校验工具
+- [ ] Clarification with no requirement change
+- [ ] New rule
+- [ ] Existing rule change
+- [ ] Chapter, template, example, or validation tooling
 
-## 背景
+## Problem and evidence
 
-说明真实用户问题或现有规范缺口。
+Describe the real user problem, observed failure, or specification gap.
 
-## 规则影响
+## Rule impact
 
-- 涉及规则 ID：
-- 规则等级：
-- 是否改变已有项目行为：
-- 迁移或偏离建议：
+- Rule IDs:
+- Requirement level:
+- Does this change existing project behavior?
+- Migration or deviation guidance:
 
-## 验收标准
+## Acceptance criteria
 
-说明人类开发者和 AI Agent 如何判断规则已经满足。
+Explain how a human developer and an AI agent can determine that the requirement is satisfied.
 
-## 检查
+## Validation
 
-- [ ] 内容与框架和 UI 库无关
-- [ ] 没有加入前端实现代码
-- [ ] 规则适用范围与非适用范围明确
-- [ ] `python3 scripts/validate.py` 通过
+- [ ] Content is framework- and UI-library-independent
+- [ ] No frontend implementation code was added
+- [ ] Applicable and non-applicable scope is clear
+- [ ] User-visible acceptance criteria are present
+- [ ] `VERSION` and `CHANGELOG.md` are updated when required
+- [ ] `python3 scripts/validate.py` passes

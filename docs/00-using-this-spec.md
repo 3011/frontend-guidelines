@@ -1,48 +1,68 @@
-# 使用这套规范
+# Using This Specification
 
-## 最小阅读集
+## Minimum reading set
 
-任何前端任务都必须读取：
+Every frontend task requires:
 
-- 根目录 `AGENTS.md`；
-- 根目录 `FRONTEND_SPEC.md`；
-- 与任务相关的详细章节；
-- 完成前的验证清单。
+- the target project's own instructions and profile;
+- root [`../AGENTS.md`](../AGENTS.md);
+- root [`../FRONTEND_SPEC.md`](../FRONTEND_SPEC.md);
+- detailed chapters relevant to the task;
+- [`10-validation-checklist.md`](10-validation-checklist.md) before delivery.
 
-## 按任务选择章节
+Do not read the repository mechanically from top to bottom when the task is narrow. Select the relevant chapters, but never skip the compact specification.
 
-| 任务 | 必读章节 |
+## Select chapters by task
+
+| Task | Required chapters |
 | --- | --- |
-| 页面重构、间距、层级 | `01-principles.md`、`02-layout-and-hierarchy.md` |
-| 表单、搜索、输入焦点 | `03-forms-and-input.md` |
-| Dialog、Drawer、Select、Tooltip | `04-overlays-and-floating-ui.md` |
-| Sidebar、导航、路由状态 | `05-navigation.md` |
-| 加载、空、错误、通知 | `06-feedback-and-status.md` |
-| 表格、列表、搜索、筛选 | `12-data-lists-and-filters.md` |
-| 按钮、图标操作、操作层级 | `13-actions-and-controls.md` |
-| 移动端、键盘、可访问性 | `07-responsive-and-accessibility.md` |
-| 页面文案、按钮名称 | `08-content-language.md` |
-| 实施与交付 | `09-implementation-workflow.md`、`10-validation-checklist.md` |
+| page restructuring, spacing, hierarchy | `01-principles.md`, `02-layout-and-hierarchy.md` |
+| forms, search, validation, input focus | `03-forms-and-input.md`, `18-editability-and-lifecycle.md` |
+| modal, side panel, select, menu, tooltip | `04-overlays-and-floating-ui.md` |
+| sidebar, navigation, route state | `05-navigation.md`, `17-state-routing-and-persistence.md` |
+| loading, empty, stale, error, notifications | `06-feedback-and-status.md` |
+| table, list, selection, search, filters | `12-data-lists-and-filters.md` |
+| buttons, icon actions, action hierarchy | `13-actions-and-controls.md` |
+| narrow screens, keyboard, accessibility | `07-responsive-and-accessibility.md` |
+| user copy, labels, terminology | `08-content-language.md` |
+| latency, large collections, retries | `14-performance-and-resilience.md` |
+| permissions, sensitive data, untrusted content | `15-permissions-security-and-privacy.md` |
+| localization, numbers, dates, timezones | `16-localization-and-formatting.md` |
+| implementation and delivery | `09-implementation-workflow.md`, `10-validation-checklist.md` |
 
-## 项目 Profile
+## Project profile
 
-项目应维护 `PROJECT_FRONTEND_PROFILE.md`，记录：
+Each project should maintain `PROJECT_FRONTEND_PROFILE.md` using the provided template. It records:
 
-- 产品类型和主要用户；
-- 框架与现有 UI 体系；
-- 已采用的通用模式；
-- 项目特有约束；
-- 对本规范的临时偏离。
+- product type and primary users;
+- framework and existing UI system;
+- routing, state ownership, and test environment;
+- established patterns;
+- browser, locale, device, accessibility, security, and performance constraints;
+- explicit deviations from this specification.
 
-AI 不得用通用规范覆盖项目明确且合理的业务约束。
+The shared specification must not overwrite a documented and reasonable product requirement. It does require the agent to distinguish an intentional project decision from an accidental inconsistency.
 
-## 引用规则
+## Cite rule IDs
 
-方案和评审中优先引用规则 ID：
+Plans, reviews, tests, and delivery reports should cite stable rule IDs:
 
 ```text
-根因违反 FG-FORM-002 和 FG-FORM-003。
-修复位于共享搜索输入层，并验证中文组合输入与焦点稳定性。
+Root cause: the filtered list remounts the active search input, violating
+FG-FORM-002 and FG-FILTER-001.
+
+Fix layer: shared search-result state ownership.
+
+Evidence: focus, caret position, IME composition, and out-of-order requests
+were verified in the browser.
 ```
 
-引用规则不等于完成验证。必须同时说明证据。
+Citing a rule does not prove compliance. Include observable evidence.
+
+## Apply requirement levels
+
+- A **MUST** or **MUST NOT** requirement is mandatory unless a documented higher-priority constraint applies.
+- A **SHOULD** requirement is the default. A deviation requires an explicit reason.
+- A **MAY** statement offers an option and does not establish a default.
+
+Marking a check “not applicable” requires explaining why the state cannot occur. It is not a substitute for an unavailable test.

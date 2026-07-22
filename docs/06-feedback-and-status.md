@@ -1,51 +1,91 @@
-# 反馈与状态
+# Feedback and Status
 
-## 状态矩阵
+## State matrix
 
-每个异步区域至少考虑：
+For each async region, consider:
 
-- 初始加载；
-- 后台刷新；
-- 空数据；
-- 部分数据；
-- 成功；
-- 可恢复错误；
-- 不可恢复错误；
-- 权限不足；
-- 离线或超时。
+- initial loading;
+- background refresh;
+- usable but stale data;
+- empty data;
+- partial data;
+- successful completion;
+- recoverable error;
+- terminal error;
+- permission denial;
+- offline state;
+- timeout;
+- cancellation;
+- conflict with newer data.
 
-这些状态不一定都需要独立页面，但不能以空白代替解释。
+Not every state needs a separate page, but blank space or indefinite loading is not an explanation.
 
-## 加载
+## Loading
 
-加载反馈应尽量保持布局稳定。短暂操作避免全屏阻断；长时间操作应说明当前阶段或允许用户离开。
+Keep layout stable when practical. Short operations should not block the entire page. Long work should identify a useful stage, indicate whether users may leave, and define cancellation or continuation behavior.
 
-## 空状态
+Do not replace still-valid data with a full-screen loading state during background refresh.
 
-空状态应区分：
+## Stale and refreshing data
 
-- 从未创建；
-- 筛选后无结果；
-- 数据加载失败；
-- 没有权限查看。
+When freshness matters, distinguish:
 
-不同原因需要不同说明和下一步操作。
+- last successfully loaded data;
+- current refresh activity;
+- refresh failure;
+- the age or source of the displayed data.
 
-## 成功反馈
+A refresh error should not automatically erase usable last-known data. It should prevent users from mistaking stale data for a fresh result.
 
-操作结果已在页面中明显体现时，不必额外使用打断式成功提示。成功提示应简短，不遮挡下一步操作。
+## Empty states
 
-## 错误与重试
+Distinguish:
 
-错误反馈必须说明：
+- nothing has been created;
+- no match under current search;
+- no match under active filters;
+- data failed to load;
+- the account cannot access data;
+- data exists but is outside the current time or scope.
 
-- 什么失败；
-- 用户数据是否已保存；
-- 可以如何恢复；
-- 重试是否安全。
+Each state needs a suitable explanation and next action.
 
-不得把原始异常、堆栈或内部错误码直接作为主要用户文案。
+## Success feedback
 
-## 破坏性操作
+When the result is already obvious in the updated page, avoid an additional blocking success message. Success feedback should be brief, truthful, and must not cover the next task.
 
-确认前必须说明对象、范围、是否可恢复和潜在影响。按钮名称应直接表达动作，例如“删除 12 条记录”，而不是模糊的“确认”。
+For long-running or queued work, acknowledge acceptance separately from completion.
+
+## Errors and retry
+
+Error feedback should explain:
+
+- what failed;
+- whether user input or remote data was saved;
+- whether retry is safe;
+- how to recover or where to get help;
+- whether currently displayed data is stale or incomplete.
+
+Do not use raw exceptions, stack traces, provider messages, or internal codes as the primary user-facing explanation. Diagnostic identifiers may appear as secondary copy when useful for support.
+
+## Progress
+
+Use determinate progress only when the denominator is meaningful. Otherwise show a stage, elapsed state, or indeterminate activity without inventing a percentage.
+
+Progress should not reset or move backward without explanation. Cancellation must clarify whether partial effects remain.
+
+## Optimistic updates
+
+An optimistic update requires:
+
+- a defined authoritative response;
+- duplicate prevention;
+- rollback or reconciliation on failure;
+- visible recovery when the server rejects or modifies the result;
+- conflict handling when newer data arrives.
+
+Never leave success styling after an operation failed.
+
+## Destructive actions
+
+Before execution, identify the target, scope, permanence, downstream effect, and recovery option. Name the confirmation action directly, for example “Delete 12 records,” rather than “Confirm.”

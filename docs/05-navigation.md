@@ -1,38 +1,50 @@
-# 导航
+# Navigation
 
-## 可定位性
+## Orientation
 
-用户应能理解：
+Users should understand:
 
-- 当前在哪里；
-- 上一级是什么；
-- 下一步可去哪里；
-- 当前导航项为何处于激活状态。
+- where they are;
+- which navigation item is active;
+- what the parent context is;
+- how to return;
+- which context, organization, project, or entity they are operating on.
 
-当前状态不能只依赖颜色，应该同时通过形状、位置、文字或语义属性表达。
+Do not use color as the only active-state signal.
 
-## Sidebar
+## Sidebar behavior
 
-展开状态下，文字已清晰可见时不重复显示 Tooltip。
+When expanded labels are visible, avoid redundant tooltips.
 
-折叠与展开必须作为完整状态转换设计：
+Treat collapse and expansion as a complete transition:
 
-1. 变更开始；
-2. 宽度与内容动画；
-3. 最终状态稳定；
-4. 最终状态相关交互启用。
+1. transition begins;
+2. width and content change;
+3. layout stabilizes;
+4. interactions specific to the final state become active.
 
-Tooltip、点击区域和文字显隐不能在错误阶段切换。动画过程中逐帧出现的闪烁、批量提示和点击错位都属于缺陷。
+Tooltip availability, label visibility, hit areas, and focus must switch at the correct phase. Bulk tooltip flashes, moving click targets, transient overlap, and inaccessible intermediate states are defects.
 
-## 标签
+## Labels and grouping
 
-导航标签应：
+Navigation labels should be short, familiar, stable, and unique enough to scan. Do not place detailed explanation, volatile status, implementation terms, or long counters inside the label.
 
-- 短；
-- 使用用户熟悉的名词；
-- 在不同页面保持稳定；
-- 避免状态、数量和解释性长句混入名称。
+Group navigation by user mental model, not source-code modules or backend services.
 
-## 移动端导航
+## Browser history and deep links
 
-移动端导航打开后不应遮挡无法恢复的上下文。选择目的地后应关闭，并将焦点移动到新页面的合理起点。
+Back, forward, refresh, and direct links should preserve meaningful user context. Decide which states deserve a URL representation, including:
+
+- selected tab or view;
+- entity or detail context;
+- search and filters;
+- page and sort;
+- an open detail panel when it represents a shareable destination.
+
+Do not create history entries for every transient hover, tooltip, or local expansion. Do not trap the user in repeated modal history steps.
+
+## Mobile navigation
+
+Mobile navigation must open, operate, and close without losing context. After selecting a destination, close the navigation and move focus to a useful point on the new page.
+
+Persistent navigation controls must not cover content or primary actions, including with safe-area insets and browser controls visible.

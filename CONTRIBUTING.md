@@ -1,28 +1,40 @@
 # Contributing
 
-本仓库只接受框架无关的前端规范、示例、模板和文档校验工具。
+This repository accepts framework-agnostic frontend requirements, rationale, examples, templates, and documentation validation tooling.
 
-## 规则变更要求
+## Rule changes
 
-新增或修改规则时必须说明：
+A new or modified rule must state:
 
-- 用户问题或真实案例；
-- 为什么现有规则不足；
-- 规则等级；
-- 适用范围与非适用范围；
-- 可观察的验收标准；
-- 是否会改变已有项目行为。
+- the real user problem or observed failure;
+- why current rules are insufficient;
+- the requirement level;
+- applicable and non-applicable scope;
+- observable acceptance criteria;
+- compatibility impact on existing projects;
+- whether a migration or temporary deviation may be required.
 
-规则 ID 发布后保持稳定。删除规则时保留迁移说明，不复用旧 ID。
+Published rule IDs remain stable. Retired IDs are documented and never reused for a different meaning.
 
-## 禁止内容
+## Writing requirements
 
-不得提交 UI 组件、框架代码、CSS 实现或与特定项目绑定的业务代码。
+- Write normative content in English.
+- Prefer observable outcomes over implementation prescriptions.
+- Keep guidance independent from frameworks and UI libraries.
+- Separate a requirement from its rationale and examples.
+- Avoid absolute pixel values unless they illustrate a ratio or acceptance boundary rather than mandate implementation.
+- Do not duplicate a rule in several chapters with conflicting wording.
 
-## 提交前
+## Prohibited content
 
-运行：
+Do not submit UI components, framework code, CSS implementations, project-specific business code, private screenshots, credentials, or customer data.
+
+## Before submitting
+
+Run:
 
 ```sh
 python3 scripts/validate.py
 ```
+
+Update `VERSION` and `CHANGELOG.md` when the change affects published guidance.

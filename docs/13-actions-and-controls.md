@@ -1,47 +1,76 @@
-# 操作与控件
+# Actions and Controls
 
-## 操作层级
+## Action hierarchy
 
-每个页面、卡片、对话框或行都有自己的操作作用域。一个作用域中通常只有一个主要操作。
+Every page, card, modal, panel, or row has an action scope. A clear scope normally has one primary action.
 
-典型层级：
+Typical hierarchy:
 
 ```text
-主要操作：推动当前任务完成
-次要操作：辅助或可选动作
-取消/返回：离开当前流程
-破坏性操作：删除、停止、重置
+Primary: advances or completes the current task
+Secondary: optional or supporting action
+Cancel/back: leaves the current workflow
+Destructive: deletes, stops, revokes, or resets
 ```
 
-不要让所有按钮都具有相同视觉重量，也不要通过增加更多颜色制造层级。
+Do not make every button equally prominent or use many colors as a substitute for hierarchy.
 
-## 位置稳定
+## Position and hit-area stability
 
-同类流程的保存、取消和关闭应保持一致位置。加载时可以显示进度，但不得让按钮宽度、顺序或点击区域剧烈变化。
+Place save, cancel, close, and destructive actions consistently across equivalent flows. A loading state may show progress, but should not drastically change button width, order, or hit area.
 
-对于重复行操作，位置应稳定；长名称不应把操作挤出可见区域。必要时调整信息布局，而不是把可点击区域压缩到难以使用。
+For repeated row actions, long names must not push actions out of view or compress them into impractical targets. Reflow information before sacrificing operability.
 
-## 纯图标操作
+## Icon-only actions
 
-纯图标适用于高频、广泛理解且空间受限的操作。仍必须提供：
+Use icon-only controls for frequent, widely understood, space-constrained actions. They still require:
 
-- 可访问名称；
-- 键盘焦点；
-- 足够点击区域；
-- 在含义可能不明确时的补充说明。
+- an accessible name;
+- visible keyboard focus;
+- an adequate pointer and touch target;
+- stable placement;
+- supplemental explanation when meaning is uncertain.
 
-删除、终止、权限变更等操作不应仅靠容易混淆的图标表达。
+Delete, terminate, permission change, and other consequential actions should not rely on an ambiguous icon alone.
 
-## 加载与重复提交
+## Loading and duplicate submission
 
-提交开始后应防止意外重复操作，同时保留明确反馈。禁用按钮不能造成焦点突然丢失；操作失败后应允许安全重试。
+After submission begins:
 
-## 破坏性操作
+- prevent accidental duplicate effects;
+- preserve focus or move it deliberately;
+- keep the action state understandable;
+- allow safe retry after failure;
+- distinguish request acceptance from remote completion.
 
-破坏性操作应：
+Do not permanently disable a control after a failed request.
 
-- 与常规操作保持位置或视觉分离；
-- 明确对象和影响范围；
-- 只有在必要时要求确认；
-- 确认按钮直接命名实际动作；
-- 不将破坏性操作设为默认焦点。
+## Destructive actions
+
+Destructive actions should:
+
+- be separated visually or spatially from routine actions;
+- state object, count, scope, and downstream effect;
+- request confirmation only when it prevents meaningful harm;
+- name the confirmation with the actual action;
+- avoid default focus;
+- explain whether the action can be reversed or cancelled.
+
+Repeated confirmations for harmless actions train users to ignore warnings. Match friction to risk.
+
+## Capability-dependent actions
+
+The UI should reflect what the current user can do:
+
+- omit irrelevant actions when absence is understandable;
+- show a disabled action with explanation when discovering the capability matters;
+- present read-only information when editing is unavailable;
+- update when role or lifecycle state changes.
+
+This behavior communicates capability. It does not replace server-side authorization.
+
+## Action menus
+
+Place infrequent secondary actions in a menu only when discoverability remains acceptable. Do not hide the primary action or high-risk state behind an unlabeled menu without a clear reason.
+
+Menu items should use the same terms as standalone actions and preserve destructive separation.

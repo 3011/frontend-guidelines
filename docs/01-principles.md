@@ -1,41 +1,51 @@
-# 原则
+# Principles
 
-## 用户任务优先
+## User task first
 
-每个页面都应有一个清晰的主要任务。视觉层级、默认焦点、首屏内容和主要操作应围绕该任务组织。
+Every surface should have a clear primary user task. Information order, visual emphasis, default focus, and the primary action should support that task.
 
-禁止为了展示系统能力而堆叠指标、说明或操作。技术实现、权限模型和数据校验只有在用户需要理解或处理时才进入界面。
+Do not add metrics, controls, implementation notes, or explanations merely to display system capability. Technical detail belongs in the interface only when users need it to decide, diagnose, or recover.
 
-## 一致性不是机械复制
+## Consistency is not mechanical copying
 
-一致性意味着：
+Useful consistency means:
 
-- 同类任务使用相同的信息顺序；
-- 相同操作使用相同名称和位置；
-- 相同状态使用相同反馈强度；
-- 相同风险使用相同确认方式。
+- equivalent tasks use the same information order;
+- the same action uses the same name and placement;
+- equivalent states use the same feedback intensity;
+- equivalent risk uses the same confirmation model;
+- route and restoration behavior remains predictable across sibling screens.
 
-错误模式不应因为“项目一直这样”而被继续复制。复用前先判断它是否合理。
+Do not copy a defective pattern simply because it already exists. Evaluate the pattern before reusing it.
 
-## 修复根因
+## Fix the root cause
 
-AI 应区分：
+Separate three concepts:
 
-- 症状：某个页面元素贴住、闪烁或偏移；
-- 根因：共享间距规则缺失、组件重新挂载、状态切换时机错误；
-- 修复层级：页面、共享模式、全局行为或数据模型。
+- **symptom** — an element touches another, flashes, shifts, or loses focus;
+- **root cause** — missing spacing hierarchy, unstable component identity, incorrect state ownership, timing, or permission assumptions;
+- **fix layer** — data/state, shared interaction, page composition, or isolated instance.
 
-最小修改不等于最小文件改动，而是**最小的正确责任边界**。
+The smallest change is not always the smallest number of edited lines. It is the smallest correct responsibility boundary that prevents recurrence without unrelated redesign.
 
-## 可观察结果优先
+## Observable outcomes are authoritative
 
-验收关注用户能够观察到的结果：
+Acceptance focuses on what users can observe:
 
-- 元素是否稳定；
-- 操作是否可完成；
-- 状态是否可理解；
-- 焦点是否正确；
-- 文字是否可读；
-- 动画中是否出现错误中间状态。
+- layout remains stable;
+- the task can be completed;
+- states are understandable;
+- focus and browser history behave correctly;
+- text remains readable and complete enough;
+- errors are recoverable;
+- transitions do not expose broken intermediate states.
 
-不得以代码结构看起来正确代替实际验证。
+A clean implementation is valuable, but it does not replace browser evidence.
+
+## Preserve user agency
+
+Users should understand when work starts, whether it is still running, whether they can leave, and what will happen to entered data. Avoid hidden state transitions, irreversible defaults, surprise navigation, or automatic actions that change remote data without clear intent.
+
+## Progressive disclosure, not concealment
+
+Advanced or infrequent options may be collapsed, but their existence, current effect, and default behavior should remain understandable. Progressive disclosure reduces cognitive load; it must not hide active risk, errors, or non-default state.

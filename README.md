@@ -1,87 +1,95 @@
 # Frontend Guidelines
 
-面向人类开发者与 AI Agent 的通用前端工程规范。
+Framework-agnostic frontend engineering guidance for human developers and AI agents.
 
-本仓库定义**应该实现什么体验、如何选择交互模式、如何验证结果**，但不提供任何 UI 组件、框架适配层或样式代码。规范可用于 React、Vue、Svelte、原生 Web 或其他前端技术栈。
+This repository defines **what user experience to produce, how to choose interaction patterns, and how to verify the result**. It intentionally contains no UI components, framework adapters, design tokens, or application code. The guidance applies to React, Vue, Svelte, native Web applications, and other frontend stacks.
 
-## 这是什么
+## Purpose
 
-它是一套可执行的前端开发契约，覆盖：
+This repository is an executable frontend contract covering:
 
-- 页面结构与视觉层级；
-- 表单、弹层、导航、数据展示、筛选和反馈模式；
-- 响应式、键盘、焦点和中文输入法行为；
-- 面向用户的文案边界；
-- AI 修改前端时的工作流程；
-- 完成后的验收与回归检查。
+- page structure, visual hierarchy, spacing, density, and alignment;
+- forms, overlays, navigation, data views, filters, actions, and feedback;
+- focus, keyboard, input method editors, responsive behavior, and accessibility;
+- performance, resilience, permissions, privacy, localization, and route state;
+- user-facing language and the boundary between product copy and developer notes;
+- the workflow an AI agent must follow before, during, and after a frontend change;
+- observable acceptance criteria and regression checks.
 
-## 这不是什么
+## Non-goals
 
-本仓库**不是**：
+This repository is **not**:
 
-- UI 组件库；
-- 设计 Token 包；
-- 某个框架的脚手架；
-- 某个 UI 库的使用手册；
-- 可复制到项目中的业务代码。
+- a UI component library;
+- a design token package;
+- a framework starter;
+- documentation for a specific UI library;
+- a source of application components or copy-paste implementation code.
 
-规范禁止依赖具体组件名称、CSS 类名或某个框架的 API 来表达要求。
+Requirements must not depend on component names, CSS utilities, framework APIs, or library-specific defaults.
 
-## AI 从哪里开始
+## Start here
 
-AI Agent 必须按以下顺序阅读：
+An AI agent must read these files in order:
 
-1. [`AGENTS.md`](AGENTS.md)：执行入口与规则优先级；
-2. [`FRONTEND_SPEC.md`](FRONTEND_SPEC.md)：强制规则的紧凑版本；
-3. 与当前任务相关的 [`docs/`](docs/) 章节；
-4. [`docs/10-validation-checklist.md`](docs/10-validation-checklist.md)：完成前检查。
+1. [`AGENTS.md`](AGENTS.md) — execution contract and rule precedence;
+2. [`FRONTEND_SPEC.md`](FRONTEND_SPEC.md) — compact normative rules with stable IDs;
+3. the relevant topic files under [`docs/`](docs/);
+4. [`docs/10-validation-checklist.md`](docs/10-validation-checklist.md) before delivery.
 
-不需要每次读取全部文件。先根据任务范围选择相关章节，但 `AGENTS.md` 和 `FRONTEND_SPEC.md` 始终必读。
+The agent does not need to read every topic file for every task. `AGENTS.md` and `FRONTEND_SPEC.md` are always required; detailed chapters are selected by task scope.
 
-## 在项目中接入
+## Adopt in another project
 
-推荐将本仓库固定到明确版本，放到项目内可被 Agent 直接读取的位置：
+Pin this repository to an explicit version and place it where the agent can read it locally, for example:
 
 ```text
 docs/frontend-guidelines/
 ```
 
-可以使用 Git submodule、subtree，或在项目初始化时复制一份。不要只在项目文档中放远程链接，因为执行环境可能没有网络访问。
+Use a Git submodule, subtree, vendored copy, or another versioned mechanism. Do not rely only on a remote link because an execution environment may not have network access.
 
-随后将 [`templates/PROJECT_AGENTS_SNIPPET.md`](templates/PROJECT_AGENTS_SNIPPET.md) 的内容加入项目根目录 `AGENTS.md`，并填写 [`templates/PROJECT_FRONTEND_PROFILE.md`](templates/PROJECT_FRONTEND_PROFILE.md)。
+Then:
 
-项目自身的明确业务约束高于本通用规范；任何偏离都必须在项目 Profile 中记录原因、影响范围和验证方式。
+1. merge [`templates/PROJECT_AGENTS_SNIPPET.md`](templates/PROJECT_AGENTS_SNIPPET.md) into the project-level `AGENTS.md`;
+2. complete [`templates/PROJECT_FRONTEND_PROFILE.md`](templates/PROJECT_FRONTEND_PROFILE.md);
+3. optionally use [`templates/FRONTEND_TASK_PLAN.md`](templates/FRONTEND_TASK_PLAN.md) for non-trivial changes;
+4. use [`templates/FRONTEND_CHANGE_REPORT.md`](templates/FRONTEND_CHANGE_REPORT.md) for delivery evidence.
 
-## 规则表达
+Explicit product requirements and documented project constraints take precedence over this general specification. Any deviation must record its reason, impact, safeguards, validation, and review condition.
 
-规范使用以下等级：
+## Requirement language
 
-- **MUST**：必须遵守；
-- **MUST NOT**：禁止；
-- **SHOULD**：除非有明确理由，否则应遵守；
-- **MAY**：可选。
+The specification uses the following levels:
 
-每条强制规则都有稳定 ID，例如 `FG-OVERLAY-002`，便于 AI 在方案、提交信息和评审中引用。
+- **MUST** — required;
+- **MUST NOT** — prohibited;
+- **SHOULD** — required unless a documented reason justifies a deviation;
+- **MAY** — optional.
 
-## 仓库结构
+Every normative rule has a stable identifier such as `FG-OVERLAY-002`. Agents should cite these IDs in plans, reviews, tests, and delivery reports.
+
+## Repository structure
 
 ```text
-AGENTS.md                 AI 执行入口与优先级
-FRONTEND_SPEC.md          45 条带稳定 ID 的规范
-docs/                     按主题展开的解释与验收方法
-examples/                 与框架无关的正确/错误示意
-templates/                项目接入与偏离记录模板
-scripts/validate.py       纯文档边界和链接检查
+AGENTS.md                   AI execution contract and precedence
+FRONTEND_SPEC.md            compact normative rule catalog
+docs/                       rationale, scope, and acceptance guidance
+examples/                   framework-agnostic good/bad examples
+templates/                  project adoption and delivery templates
+scripts/validate.py         repository, language, rule, and link validation
 ```
 
-## 版本
+## Versioning
 
-当前版本见 [`VERSION`](VERSION)。版本变更遵循语义化版本：
+The current version is in [`VERSION`](VERSION). Semantic versioning is used:
 
-- PATCH：澄清文字，不改变要求；
-- MINOR：增加兼容的新规则；
-- MAJOR：删除规则或改变既有规则含义。
+- **PATCH** — clarification that does not change required behavior;
+- **MINOR** — compatible new rules, chapters, or validation guidance;
+- **MAJOR** — removal of a published rule or a meaningfully incompatible requirement change.
 
-## 许可证
+Published rule IDs are never reused for a different meaning.
+
+## License
 
 [MIT](LICENSE)

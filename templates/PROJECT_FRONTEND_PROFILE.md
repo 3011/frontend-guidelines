@@ -1,51 +1,86 @@
 # Project Frontend Profile
 
-## 产品与用户
+This file records project-specific context that an agent must understand before applying the shared guidelines.
 
-- 产品类型：
-- 主要用户：
-- 高频任务：
-- 高风险操作：
+## Product and users
 
-## 技术环境
+- Product type:
+- Primary users:
+- High-frequency tasks:
+- High-risk actions:
+- Accessibility commitments:
+- Supported languages and locales:
 
-- 前端框架：
-- UI 体系：
-- 样式方式：
-- 路由：
-- 状态管理：
-- 测试方式：
-- 支持浏览器与设备：
+## Technical environment
 
-## 项目既有模式
+- Frontend framework:
+- UI system:
+- Styling approach:
+- Routing:
+- Client state:
+- Server/data state:
+- Form strategy:
+- Test strategy:
+- Browser and device support:
+- Analytics and error reporting:
 
-- 页面布局：
-- 导航：
-- 创建/编辑流程：
-- 表单：
-- 列表与表格：
-- 通知与错误：
-- 移动端：
+## Established project patterns
 
-## 项目特有约束
+- Page layout:
+- Navigation:
+- Creation and editing flows:
+- Forms and validation:
+- Lists and tables:
+- Search and filters:
+- Notifications and errors:
+- Permission-dependent UI:
+- Mobile behavior:
+- Theme behavior:
 
-- 业务约束：
-- 权限约束：
-- 性能约束：
-- 可访问性约束：
+## State ownership
 
-## 规范偏离
+Document where these states belong when applicable:
 
-暂无。
+- URL state:
+- persisted local preferences:
+- drafts:
+- server-authoritative state:
+- selection state:
+- background refresh and freshness:
 
-新增偏离时使用：
+## Project-specific constraints
+
+- Business constraints:
+- Permission constraints:
+- privacy and security constraints:
+- performance constraints or budgets:
+- localization and timezone rules:
+- accessibility constraints:
+- supported data sizes:
+
+## Validation environment
+
+- local start command:
+- static checks:
+- unit or component tests:
+- browser tests:
+- required desktop viewport:
+- required narrow viewport:
+- test accounts or fixtures:
+
+## Guideline deviations
+
+None.
+
+Use this format for a new deviation:
 
 ```text
-偏离规则：FG-...
-范围：
-原因：
-用户影响：
-替代保护措施：
-验证方式：
-复查条件：
+Rule: FG-...
+Scope:
+Reason:
+User impact:
+Compensating safeguards:
+Validation:
+Review trigger or expiry:
+Owner:
 ```
