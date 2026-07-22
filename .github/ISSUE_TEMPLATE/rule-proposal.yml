@@ -1,0 +1,48 @@
+name: Rule proposal
+description: Propose a new rule or a meaningful change to an existing rule
+labels: [guideline]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: User problem or observed failure
+      description: Describe the real frontend problem and who it affects.
+    validations:
+      required: true
+  - type: textarea
+    id: gap
+    attributes:
+      label: Specification gap
+      description: Explain why existing rule IDs do not cover the problem.
+    validations:
+      required: true
+  - type: input
+    id: related_rules
+    attributes:
+      label: Related rule IDs
+      placeholder: FG-FORM-002, FG-FILTER-001
+  - type: dropdown
+    id: level
+    attributes:
+      label: Suggested requirement level
+      options:
+        - MUST or MUST NOT
+        - SHOULD
+        - MAY
+        - Not sure
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Observable acceptance criteria
+      description: State how a human or agent can verify compliance.
+    validations:
+      required: true
+  - type: textarea
+    id: compatibility
+    attributes:
+      label: Compatibility and migration impact
+      description: Explain whether existing projects would need to change.
+    validations:
+      required: true

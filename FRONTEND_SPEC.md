@@ -1,6 +1,15 @@
 # Frontend Specification
 
-This file is the compact normative entry point. Detailed rationale, examples, exceptions, and acceptance guidance are in `docs/`.
+This is the complete normative rule catalog. Read the applicable sections for focused work and the full file for broad or cross-cutting changes. Detailed rationale, examples, exceptions, and acceptance guidance are in [`docs/`](docs/).
+
+Requirement levels:
+
+- **MUST**: required unless a documented higher-priority constraint applies;
+- **MUST NOT**: prohibited;
+- **SHOULD**: the default unless a documented reason justifies a deviation;
+- **MAY**: optional.
+
+Published rule IDs are stable and are never reused for a different meaning.
 
 ## Core
 

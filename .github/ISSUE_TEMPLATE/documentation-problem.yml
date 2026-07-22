@@ -1,0 +1,30 @@
+name: Documentation problem
+description: Report ambiguity, duplication, a broken link, or an incorrect example
+labels: [documentation]
+body:
+  - type: input
+    id: location
+    attributes:
+      label: File or rule ID
+      placeholder: docs/04-overlays-and-floating-ui.md or FG-OVERLAY-002
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: Describe what is unclear, incorrect, duplicated, or missing.
+    validations:
+      required: true
+  - type: textarea
+    id: consequence
+    attributes:
+      label: Likely consequence
+      description: Explain how a human or AI agent could misapply the guidance.
+    validations:
+      required: true
+  - type: textarea
+    id: correction
+    attributes:
+      label: Suggested correction
+      description: Optional proposed wording or structure.

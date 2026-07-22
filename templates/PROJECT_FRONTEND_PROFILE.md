@@ -1,86 +1,58 @@
 # Project Frontend Profile
 
-This file records project-specific context that an agent must understand before applying the shared guidelines.
+Record only context that changes how an agent should apply the shared guidelines.
 
-## Product and users
+## Product
 
-- Product type:
 - Primary users:
-- High-frequency tasks:
+- Core tasks:
 - High-risk actions:
-- Accessibility commitments:
-- Supported languages and locales:
+- Supported languages, locales, and timezones:
 
-## Technical environment
+## Technical context
 
-- Frontend framework:
-- UI system:
-- Styling approach:
-- Routing:
-- Client state:
-- Server/data state:
-- Form strategy:
+- Framework, UI system, and styling:
+- Routing and state ownership:
+- Data and form strategy:
 - Test strategy:
-- Browser and device support:
-- Analytics and error reporting:
+- Supported browsers and devices:
 
-## Established project patterns
+## Established patterns
 
-- Page layout:
-- Navigation:
-- Creation and editing flows:
-- Forms and validation:
-- Lists and tables:
-- Search and filters:
-- Notifications and errors:
+- Layout and navigation:
+- Forms and overlays:
+- Tables, lists, search, and filters:
+- Feedback and error handling:
 - Permission-dependent UI:
-- Mobile behavior:
-- Theme behavior:
+- Responsive and theme behavior:
 
-## State ownership
+## Project constraints
 
-Document where these states belong when applicable:
+- Business and lifecycle constraints:
+- Permissions, privacy, and security:
+- Accessibility:
+- Performance and expected data size:
 
-- URL state:
-- persisted local preferences:
-- drafts:
-- server-authoritative state:
-- selection state:
-- background refresh and freshness:
+## Validation
 
-## Project-specific constraints
-
-- Business constraints:
-- Permission constraints:
-- privacy and security constraints:
-- performance constraints or budgets:
-- localization and timezone rules:
-- accessibility constraints:
-- supported data sizes:
-
-## Validation environment
-
-- local start command:
-- static checks:
-- unit or component tests:
-- browser tests:
-- required desktop viewport:
-- required narrow viewport:
-- test accounts or fixtures:
+- Start command:
+- Static and automated checks:
+- Browser scenarios and viewports:
+- Test accounts or fixtures:
 
 ## Guideline deviations
 
 None.
 
-Use this format for a new deviation:
+For each deviation, record:
 
 ```text
-Rule: FG-...
+Rule:
 Scope:
 Reason:
 User impact:
-Compensating safeguards:
+Safeguards:
 Validation:
-Review trigger or expiry:
+Review condition:
 Owner:
 ```

@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.2.1 — 2026-07-22
+
+- Simplified the README, AI entry instructions, and project profile without removing normative rules.
+- Added a layered reading path through `CORE_RULES.md`, task-based chapter selection, and the complete specification.
+- Removed the duplicated specification-usage chapter and moved its useful task map into the documentation index.
+- Added a code of conduct, security policy, structured issue forms, an adoption example, and initial agent evaluation cases.
+- Moved requirement-level and versioning details to their authoritative documents.
+
 ## 0.2.0 — 2026-07-22
 
 - Rewrote all normative guidance, examples, templates, and contribution material in English.
